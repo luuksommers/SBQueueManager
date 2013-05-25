@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="SBQueueManager.QueueView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="600">
+    <Grid>
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TabItem Header="General">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Margin="5,5,5,5" Content="Path" />
+                    <Label Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" Content="AccessedAt" />
+                    <Label Grid.Row="2" Grid.Column="0" Margin="5,5,5,5" Content="CreatedAt" />
+                    <Label Grid.Row="3" Grid.Column="0" Margin="5,5,5,5" Content="DefaultMessageTimeToLive" />
+                    <Label Grid.Row="4" Grid.Column="0" Margin="5,5,5,5" Content="DuplicateDetectionHistoryTimeWindow" />
+                    <Label Grid.Row="5" Grid.Column="0" Margin="5,5,5,5" Content="EnableBatchedOperations" />
+                    <Label Grid.Row="6" Grid.Column="0" Margin="5,5,5,5" Content="EnableDeadLetteringOnMessageExpiration" />
+                    <Label Grid.Row="7" Grid.Column="0" Margin="5,5,5,5" Content="ForwardTo" />
+                    <Label Grid.Row="8" Grid.Column="0" Margin="5,5,5,5" Content="IsAnonymousAccessible" />
+                    <Label Grid.Row="9" Grid.Column="0" Margin="5,5,5,5" Content="UpdatedAt" />
+
+                    <Label Grid.Row="0" Grid.Column="2" Margin="5,5,5,5" Content="LockDuration" />
+                    <Label Grid.Row="1" Grid.Column="2" Margin="5,5,5,5" Content="MaxDeliveryCount" />
+                    <Label Grid.Row="2" Grid.Column="2" Margin="5,5,5,5" Content="MaxSizeInMegabytes" />
+                    <Label Grid.Row="3" Grid.Column="2" Margin="5,5,5,5" Content="MessageCount" />
+                    <Label Grid.Row="4" Grid.Column="2" Margin="5,5,5,5" Content="RequiresDuplicateDetection" />
+                    <Label Grid.Row="5" Grid.Column="2" Margin="5,5,5,5" Content="RequiresSession" />
+                    <Label Grid.Row="6" Grid.Column="2" Margin="5,5,5,5" Content="SizeInBytes" />
+                    <Label Grid.Row="7" Grid.Column="2" Margin="5,5,5,5" Content="Status" />
+                    <Label Grid.Row="8" Grid.Column="2" Margin="5,5,5,5" Content="SupportOrdering" />
+                    <Label Grid.Row="9" Grid.Column="2" Margin="5,5,5,5" Content="UserMetadata" />
+
+                    <Label Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" x:Name="Instance_Path" />
+                    <Label Grid.Row="1" Grid.Column="1" Margin="5,5,5,5" x:Name="Instance_AccessedAt" />
+                    <Label Grid.Row="2" Grid.Column="1" Margin="5,5,5,5" x:Name="Instance_CreatedAt" />
+                    <Label Grid.Row="3" Grid.Column="1" Margin="5,5,5,5" x:Name="Instance_DefaultMessageTimeToLive" />
+                    <Label Grid.Row="4" Grid.Column="1" Margin="5,5,5,5" x:Name="Instance_DuplicateDetectionHistoryTimeWindow" />
+                    <Label Grid.Row="5" Grid.Column="1" Margin="5,5,5,5" x:Name="Instance_EnableBatchedOperations" />
+                    <Label Grid.Row="6" Grid.Column="1" Margin="5,5,5,5" x:Name="Instance_EnableDeadLetteringOnMessageExpiration" />
+                    <Label Grid.Row="7" Grid.Column="1" Margin="5,5,5,5" x:Name="Instance_ForwardTo" />
+                    <Label Grid.Row="8" Grid.Column="1" Margin="5,5,5,5" x:Name="Instance_IsAnonymousAccessible" />
+                    <Label Grid.Row="9" Grid.Column="1" Margin="5,5,5,5" x:Name="Instance_UpdatedAt" />
+
+                    <Label Grid.Row="0" Grid.Column="3" Margin="5,5,5,5" x:Name="Instance_LockDuration" />
+                    <Label Grid.Row="1" Grid.Column="3" Margin="5,5,5,5" x:Name="Instance_MaxDeliveryCount" />
+                    <Label Grid.Row="2" Grid.Column="3" Margin="5,5,5,5" x:Name="Instance_MaxSizeInMegabytes" />
+                    <Label Grid.Row="3" Grid.Column="3" Margin="5,5,5,5" x:Name="Instance_MessageCount" />
+                    <Label Grid.Row="4" Grid.Column="3" Margin="5,5,5,5" x:Name="Instance_RequiresDuplicateDetection" />
+                    <Label Grid.Row="5" Grid.Column="3" Margin="5,5,5,5" x:Name="Instance_RequiresSession" />
+                    <Label Grid.Row="6" Grid.Column="3" Margin="5,5,5,5" x:Name="Instance_SizeInBytes" />
+                    <Label Grid.Row="7" Grid.Column="3" Margin="5,5,5,5" x:Name="Instance_Status" />
+                    <Label Grid.Row="8" Grid.Column="3" Margin="5,5,5,5" x:Name="Instance_SupportOrdering" />
+                    <Label Grid.Row="9" Grid.Column="3" Margin="5,5,5,5" x:Name="Instance_UserMetadata" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Authorization">
+                <DataGrid x:Name="Instance_Authorization" AutoGenerateColumns="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</UserControl>
