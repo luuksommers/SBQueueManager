@@ -90,11 +90,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="QueueView.xaml">
+    <Page Include="Views\CreateQueueView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ShellView.xaml">
+    <Page Include="Views\QueueView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -102,14 +106,21 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Class1.cs" />
-    <Compile Include="QueueView.xaml.cs">
+    <Compile Include="Manager\Class1.cs" />
+    <Compile Include="Views\CreateQueueView.xaml.cs">
+      <DependentUpon>CreateQueueView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CreateQueueViewModel.cs" />
+    <Compile Include="Helpers\DialogHelper.cs" />
+    <Compile Include="Manager\QueueException.cs" />
+    <Compile Include="Manager\QueueManager.cs" />
+    <Compile Include="Views\QueueView.xaml.cs">
       <DependentUpon>QueueView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="QueueViewModel.cs" />
-    <Compile Include="ShellViewModel.cs" />
+    <Compile Include="ViewModels\QueueViewModel.cs" />
+    <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="SBQueueManagerBootstrapper.cs" />
-    <Compile Include="ShellView.xaml.cs">
+    <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -140,6 +151,7 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

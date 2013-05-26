@@ -1,4 +1,4 @@
-﻿<mahApps:MetroWindow x:Class="SBQueueManager.ShellView"
+﻿<mahApps:MetroWindow x:Class="SBQueueManager.Views.ShellView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                     xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"

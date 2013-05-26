@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SBQueueManager.QueueView"
+﻿<UserControl x:Class="SBQueueManager.Views.QueueView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -74,8 +74,18 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Authorization">
-                <DataGrid x:Name="Instance_Authorization" AutoGenerateColumns="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                </DataGrid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Row="0" x:Name="Instance_Authorization" SelectedItem="{Binding Path=SelectedAuthorization,Mode=TwoWay}" AutoGenerateColumns="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Content="Add User" x:Name="AddUser" Margin="5"/>
+                        <Button Content="Delete User" x:Name="DeleteUser" Margin="5"/>
+                    </StackPanel>
+                </Grid>
             </TabItem>
         </TabControl>
 

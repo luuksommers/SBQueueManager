@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using NLog;
 
-namespace MeteoConsult.Maritime.RoutingWorker
+namespace SBQueueManager.Manager
 {
     public class ServiceBusDomainUser
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using MahApps.Metro.Controls;
 
-namespace SBQueueManager
+namespace SBQueueManager.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
