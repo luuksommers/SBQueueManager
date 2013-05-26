@@ -38,7 +38,7 @@ namespace SBQueueManager.ViewModels
 
         public bool CanSave()
         {
-            return IsNameValid;
+            return true;
         }
 
         public void AddUser()

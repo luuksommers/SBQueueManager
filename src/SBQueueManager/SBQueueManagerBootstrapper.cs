@@ -17,20 +17,25 @@ namespace SBQueueManager
         protected override void Configure()
         {
             var builder = new ContainerBuilder();
-            var dataAccess = Assembly.GetExecutingAssembly();
+            
 
             builder.RegisterType<QueueManager>();
+            builder.RegisterType<WindowManager>().AsImplementedInterfaces();
+            builder.RegisterType<EventAggregator>().AsImplementedInterfaces();
 
+            var dataAccess = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(dataAccess)
                 .Where(t => t.Name.EndsWith("ViewModel"))
                 .AsSelf();
+
+            Container = builder.Build();
 
             base.Configure();
         }
 
         protected override object GetInstance(Type service, string key)
         {
-            if (Container.IsRegistered(service))
+            if (Container != null && Container.IsRegistered(service))
                 return Container.Resolve(service);
 
             return base.GetInstance(service, key);

@@ -8,7 +8,7 @@ namespace SBQueueManager.Helpers
         public static void ShowDialog<T>(params Object[] param) where T : class
         {
             var windowManager = new WindowManager();
-            T viewModel = Activator.CreateInstance(typeof(T), param) as T;
+            T viewModel = IoC.Get<T>();
 
             windowManager.ShowWindow(viewModel);
         }

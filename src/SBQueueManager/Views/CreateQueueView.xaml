@@ -3,6 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                     xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                                     Title="CreateQueueView" Height="300" Width="300">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -20,12 +32,13 @@
         </Grid.ColumnDefinitions>
         
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Name"/>
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="Name" Width="100"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="Name" Text="{Binding Name, UpdateSourceTrigger=LostFocus}" Width="100"/>
         <DataGrid Grid.Row="1" Grid.ColumnSpan="99" x:Name="Users" AutoGenerateColumns="True" />
         <TextBlock Grid.Row="2" Grid.Column="0" Text="User"/>
         <TextBox Grid.Row="2" Grid.Column="1" x:Name="User" Width="100"/>
         <CheckBox Grid.Row="2" Grid.Column="2" x:Name="UserAllowListen" Content="Read"/>
         <CheckBox Grid.Row="2" Grid.Column="3" x:Name="UserAllowSend" Content="Write"/>
         <Button Grid.Row="2" Grid.Column="4" x:Name="AddUser" Content="Add"/>
+        <Button Grid.Row="3" Grid.Column="4" x:Name="Save" Content="Save"/>
     </Grid>
 </mahApps:MetroWindow>
