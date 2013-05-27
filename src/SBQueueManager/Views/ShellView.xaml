@@ -1,9 +1,9 @@
 ﻿<mahApps:MetroWindow x:Class="SBQueueManager.Views.ShellView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                                    xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                      xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-                     Title="MainWindow" Height="600" Width="900">
+                     Title="Service Bus Queue Manager" Height="600" Width="900">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -12,28 +12,32 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="0" x:Name="Queues" Margin="5" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch" cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenQueue($this)]">
+        <ListBox Grid.Column="0" x:Name="Queues" Validation.ErrorTemplate="{x:Null}" Margin="5" Width="180" ItemsSource="{Binding Path=Queues, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                 cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenQueue($this)]">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                        <TextBlock Text="{Binding Path}" />
+                    <TextBlock Text="{Binding Path}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <Button Grid.Column="0" Grid.Row="1" x:Name="CreateQueue" Content="Create Queue" Margin="5" />
-        <ContentControl Grid.Column="1" Grid.RowSpan="2" x:Name="SelectedQueue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <ContentControl Grid.Column="1" Grid.RowSpan="2" x:Name="SelectedQueue" HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch" />
     </Grid>
 </mahApps:MetroWindow>

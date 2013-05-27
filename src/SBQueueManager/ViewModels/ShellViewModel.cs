@@ -17,6 +17,7 @@ namespace SBQueueManager.ViewModels
         {
             _manager = manager;
             Queues = _manager.Queues;
+            _manager.Queues.CollectionChanged += (sender, args) => NotifyOfPropertyChange(() => Queues);
         }
 
         public void OpenQueue(QueueDescription queue)

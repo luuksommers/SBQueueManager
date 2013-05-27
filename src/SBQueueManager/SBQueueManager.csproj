@@ -106,7 +106,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Manager\Class1.cs" />
+    <Compile Include="Manager\MessageReceiveDelegateArgs.cs" />
+    <Compile Include="Manager\MessageReceiveDelegate.cs" />
+    <Compile Include="Manager\ServiceBusBase.cs" />
+    <Compile Include="Manager\ServiceBusUser.cs" />
     <Compile Include="Views\CreateQueueView.xaml.cs">
       <DependentUpon>CreateQueueView.xaml</DependentUpon>
     </Compile>

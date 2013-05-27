@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using Autofac;
 using Caliburn.Micro;
 using SBQueueManager.Manager;
@@ -13,20 +10,20 @@ namespace SBQueueManager
     public class SBQueueManagerBootstrapper : Bootstrapper<ShellViewModel>
     {
         private static IContainer Container { get; set; }
-        
+
         protected override void Configure()
         {
             var builder = new ContainerBuilder();
-            
+
 
             builder.RegisterType<QueueManager>();
             builder.RegisterType<WindowManager>().AsImplementedInterfaces();
             builder.RegisterType<EventAggregator>().AsImplementedInterfaces();
 
-            var dataAccess = Assembly.GetExecutingAssembly();
+            Assembly dataAccess = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(dataAccess)
-                .Where(t => t.Name.EndsWith("ViewModel"))
-                .AsSelf();
+                   .Where(t => t.Name.EndsWith("ViewModel"))
+                   .AsSelf();
 
             Container = builder.Build();
 

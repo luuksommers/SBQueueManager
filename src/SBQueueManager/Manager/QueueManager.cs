@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
@@ -12,13 +11,11 @@ namespace SBQueueManager.Manager
 {
     public class QueueManager : IQueueManager
     {
-        public ObservableCollection<QueueDescription> Queues { get; set; }
-
+        private const string ConnectionStringAppSetting = "ServiceBus.ConnectionString";
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly string _connectionString;
         private readonly string _nameSpace;
         private readonly NamespaceManager _namespaceManager;
-        private const string ConnectionStringAppSetting = "ServiceBus.ConnectionString";
 
         public QueueManager()
         {
@@ -29,20 +26,23 @@ namespace SBQueueManager.Manager
             Queues = new ObservableCollection<QueueDescription>(_namespaceManager.GetQueues());
         }
 
-        public void CreateQueue(string name, IEnumerable<ServiceBusDomainUser> users)
+        public ObservableCollection<QueueDescription> Queues { get; set; }
+
+        public void CreateQueue(string path, IEnumerable<ServiceBusUser> users)
         {
-            if (_namespaceManager.QueueExists(name))
+            if (_namespaceManager.QueueExists(path))
             {
-                throw new QueueException("Queue {0} already exists", name);
+                throw new QueueException("Queue {0} already exists", path);
             }
 
-            var queue = new QueueDescription(name);
+            var queue = new QueueDescription(path);
 
-            foreach (var user in users)
+            foreach (ServiceBusUser user in users)
             {
                 queue.Authorization.Add(new AllowRule(_nameSpace, "nameidentifier",
-                                                      user.UserName + "@" + Environment.GetEnvironmentVariable("USERDNSDOMAIN"),
-                                                      user.AccessRights));
+                                                      user.UserName + "@" +
+                                                      Environment.GetEnvironmentVariable("USERDNSDOMAIN"),
+                                                      user.GetAccessRights()));
             }
 
             queue = _namespaceManager.CreateQueue(queue);

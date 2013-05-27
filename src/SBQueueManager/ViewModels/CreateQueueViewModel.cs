@@ -2,21 +2,29 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
-using Microsoft.ServiceBus.Messaging;
 using SBQueueManager.Manager;
 
 namespace SBQueueManager.ViewModels
 {
     public class CreateQueueViewModel : Screen
     {
-        private string _name;
-        public string Name 
-        { 
-            get { return _name; }
-            set 
-            { 
-                _name = value; 
-                IsNameValid = _manager.Queues.All(a => a.Path != _name);
+        private readonly QueueManager _manager;
+        private string _path;
+
+        public CreateQueueViewModel(QueueManager manager)
+        {
+            _manager = manager;
+            Users = new ObservableCollection<ServiceBusUser>();
+            this.DisplayName = "Create queue";
+        }
+
+        public string Path
+        {
+            get { return _path; }
+            set
+            {
+                _path = value;
+                IsNameValid = _manager.Queues.All(a => a.Path != _path);
                 NotifyOfPropertyChange(() => IsNameValid);
             }
         }
@@ -25,15 +33,7 @@ namespace SBQueueManager.ViewModels
         public string UserName { get; set; }
         public bool UserAllowListen { get; set; }
         public bool UserAllowSend { get; set; }
-        public ObservableCollection<ServiceBusDomainUser> Users { get; set; }
-
-        private readonly QueueManager _manager;
-
-        public CreateQueueViewModel(QueueManager manager)
-        {
-            _manager = manager;
-            Users = new ObservableCollection<ServiceBusDomainUser>();
-        }
+        public ObservableCollection<ServiceBusUser> Users { get; set; }
 
         public bool CanSave()
         {
@@ -42,20 +42,18 @@ namespace SBQueueManager.ViewModels
 
         public void AddUser()
         {
-            var user = new ServiceBusDomainUser();
-            user.UserName = UserName;
+            var user = new ServiceBusUser();
 
-            if (UserAllowListen)
-                user.AccessRights.Add(AccessRights.Listen);
-            if (UserAllowSend)
-                user.AccessRights.Add(AccessRights.Send);
+            user.UserName = UserName;
+            user.AllowListen = UserAllowListen;
+            user.AllowSend = UserAllowSend;
 
             Users.Add(user);
         }
 
         public void Save()
         {
-            _manager.CreateQueue(Name, Users);
+            _manager.CreateQueue(Path, Users);
             TryClose();
         }
     }

@@ -8,24 +8,6 @@ using NLog;
 
 namespace SBQueueManager.Manager
 {
-    public class ServiceBusDomainUser
-    {
-        /// <summary>
-        /// Username without domain
-        /// </summary>
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// Add the user rights (Read and/or write)
-        /// </summary>
-        public List<AccessRights> AccessRights { get; set; }
-
-        public ServiceBusDomainUser()
-        {
-            AccessRights = new List<AccessRights>();
-        }
-    }
-
     public class ServiceBusBase<T>
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
@@ -58,7 +40,7 @@ namespace SBQueueManager.Manager
         /// Creates a queue, note that only the owner users of a queue can create one
         /// </summary>
         /// <param name="serviceBusUsers">List of read and write users for the queue</param>
-        public void CreateQueue(IEnumerable<ServiceBusDomainUser> serviceBusUsers)
+        public void CreateQueue(IEnumerable<ServiceBusUser> serviceBusUsers)
         {
             Logger.Debug("Creating NamespaceManager");
             NamespaceManager namespaceManager = NamespaceManager.CreateFromConnectionString(_connectionString);
@@ -73,7 +55,7 @@ namespace SBQueueManager.Manager
                 {
                     queue.Authorization.Add(new AllowRule("ServiceBusDefaultNamespace", "nameidentifier",
                                                           user.UserName + "@" + Environment.GetEnvironmentVariable("USERDNSDOMAIN"),
-                                                          user.AccessRights));
+                                                          user.GetAccessRights()));
                 }
                 namespaceManager.CreateQueue(queue);
             }
@@ -119,15 +101,6 @@ namespace SBQueueManager.Manager
             {
                 handler(this, new MessageReceiveDelegateArgs<T>(receivedBody));
             }
-        }
-    }
-
-    public delegate void MessageReceiveDelegate<T>(object sender, MessageReceiveDelegateArgs<T> args);
-
-    public class MessageReceiveDelegateArgs<T>
-    {
-        public MessageReceiveDelegateArgs(T receivedBody)
-        {
         }
     }
 }
