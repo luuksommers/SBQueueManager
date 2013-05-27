@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                     xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                      xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-                     Title="MainWindow" Height="500" Width="800">
+                     Title="MainWindow" Height="600" Width="900">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -26,7 +26,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="0" x:Name="Queues" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch" cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenQueue($this)]">
+        <ListBox Grid.Column="0" x:Name="Queues" Margin="5" Width="180" HorizontalAlignment="Left" VerticalAlignment="Stretch" cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenQueue($this)]">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                         <TextBlock Text="{Binding Path}" />
@@ -34,6 +34,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button Grid.Column="0" Grid.Row="1" x:Name="CreateQueue" Content="Create Queue" Margin="5" />
-        <ContentControl Grid.Column="1" Grid.RowSpan="2" x:Name="SelectedQueue" HorizontalAlignment="Stretch" Margin="100,0,0,0" VerticalAlignment="Stretch" />
+        <ContentControl Grid.Column="1" Grid.RowSpan="2" x:Name="SelectedQueue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>
 </mahApps:MetroWindow>

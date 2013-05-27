@@ -16,12 +16,12 @@ namespace SBQueueManager.ViewModels
         public ShellViewModel(QueueManager manager)
         {
             _manager = manager;
-            Queues = new ObservableCollection<QueueDescription>(_manager.Queues);
+            Queues = _manager.Queues;
         }
 
         public void OpenQueue(QueueDescription queue)
         {
-            SelectedQueue = new QueueViewModel(queue);
+            SelectedQueue = new QueueViewModel(queue, _manager);
             NotifyOfPropertyChange(() => SelectedQueue);
         }
 

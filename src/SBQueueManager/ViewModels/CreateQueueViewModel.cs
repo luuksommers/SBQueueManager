@@ -7,10 +7,8 @@ using SBQueueManager.Manager;
 
 namespace SBQueueManager.ViewModels
 {
-    public class CreateQueueViewModel : PropertyChangedBase
+    public class CreateQueueViewModel : Screen
     {
-        private readonly QueueManager _manager;
-
         private string _name;
         public string Name 
         { 
@@ -24,16 +22,17 @@ namespace SBQueueManager.ViewModels
         }
 
         public bool IsNameValid { get; set; }
-
         public string UserName { get; set; }
         public bool UserAllowListen { get; set; }
         public bool UserAllowSend { get; set; }
+        public ObservableCollection<ServiceBusDomainUser> Users { get; set; }
 
-        public ObservableCollection<ServiceBusDomainUser> Users = new ObservableCollection<ServiceBusDomainUser>();
+        private readonly QueueManager _manager;
 
         public CreateQueueViewModel(QueueManager manager)
         {
             _manager = manager;
+            Users = new ObservableCollection<ServiceBusDomainUser>();
         }
 
         public bool CanSave()
@@ -57,6 +56,7 @@ namespace SBQueueManager.ViewModels
         public void Save()
         {
             _manager.CreateQueue(Name, Users);
+            TryClose();
         }
     }
 }
