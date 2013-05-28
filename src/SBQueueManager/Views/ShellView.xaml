@@ -3,7 +3,7 @@
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                      xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-                     Title="Service Bus Queue Manager" Height="600" Width="900">
+                     Title="Service Bus Queue Manager" Height="600" Width="910" MinWidth="910">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -20,15 +20,16 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="0" x:Name="Queues" Validation.ErrorTemplate="{x:Null}" Margin="5" Width="180" ItemsSource="{Binding Path=Queues, UpdateSourceTrigger=PropertyChanged}"
-                 HorizontalAlignment="Left" VerticalAlignment="Stretch"
+        <Button Grid.Column="0" Grid.Row="0" x:Name="CreateQueue" Content="Create Queue" Margin="5" />
+        <ListBox Grid.Column="0" Grid.Row="1" x:Name="Queues" Validation.ErrorTemplate="{x:Null}" Margin="5" Width="180" ItemsSource="{Binding Path=Queues, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderBrush="Black"
                  cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenQueue($this)]">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -36,7 +37,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Column="0" Grid.Row="1" x:Name="CreateQueue" Content="Create Queue" Margin="5" />
+
         <ContentControl Grid.Column="1" Grid.RowSpan="2" x:Name="SelectedQueue" HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch" />
     </Grid>

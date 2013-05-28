@@ -20,7 +20,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -76,14 +76,13 @@
                     <Label Grid.Row="8" Grid.Column="3" Margin="5,5,5,5" x:Name="Instance_SupportOrdering" />
                     <Label Grid.Row="9" Grid.Column="3" Margin="5,5,5,5" x:Name="Instance_UserMetadata" />
 
-                    <Button Grid.Row="10" Grid.Column="0" Margin="5,5,5,5" x:Name="Delete" Content="Delete" />
+                    <Button Grid.Row="11" Grid.Column="3" Margin="5,5,5,5" x:Name="Delete" Content="Delete" />
                 </Grid>
             </TabItem>
             <TabItem Header="Authorization">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
                     <DataGrid Grid.Row="0" x:Name="Users" Validation.ErrorTemplate="{x:Null}" CanUserAddRows="false"
                               SelectedItem="{Binding Path=SelectedAuthorization,Mode=TwoWay}"
@@ -118,10 +117,6 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <Button Content="Add User" x:Name="AddUser" Margin="5" />
-                        <Button Content="Delete User" x:Name="DeleteUser" Margin="5" />
-                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>

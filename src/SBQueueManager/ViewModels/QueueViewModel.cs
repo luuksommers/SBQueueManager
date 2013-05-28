@@ -31,15 +31,5 @@ namespace SBQueueManager.ViewModels
         {
             _manager.DeleteQueue(Instance.Path);
         }
-
-        public void AddUser()
-        {
-            
-        }
-
-        public void DeleteUser()
-        {
-            
-        }
     }
 }
