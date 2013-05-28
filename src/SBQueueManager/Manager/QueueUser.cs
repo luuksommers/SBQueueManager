@@ -3,7 +3,7 @@ using Microsoft.ServiceBus.Messaging;
 
 namespace SBQueueManager.Manager
 {
-    public class ServiceBusUser
+    public class QueueUser
     {
         /// <summary>
         ///     Username without domain

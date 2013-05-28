@@ -14,7 +14,7 @@ namespace SBQueueManager.ViewModels
         public CreateQueueViewModel(QueueManager manager)
         {
             _manager = manager;
-            Users = new ObservableCollection<ServiceBusUser>();
+            Users = new ObservableCollection<QueueUser>();
             this.DisplayName = "Create queue";
         }
 
@@ -33,7 +33,7 @@ namespace SBQueueManager.ViewModels
         public string UserName { get; set; }
         public bool UserAllowListen { get; set; }
         public bool UserAllowSend { get; set; }
-        public ObservableCollection<ServiceBusUser> Users { get; set; }
+        public ObservableCollection<QueueUser> Users { get; set; }
 
         public bool CanSave()
         {
@@ -42,7 +42,7 @@ namespace SBQueueManager.ViewModels
 
         public void AddUser()
         {
-            var user = new ServiceBusUser();
+            var user = new QueueUser();
 
             user.UserName = UserName;
             user.AllowListen = UserAllowListen;

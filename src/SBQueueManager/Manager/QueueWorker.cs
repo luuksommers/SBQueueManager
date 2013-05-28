@@ -8,7 +8,7 @@ using NLog;
 
 namespace SBQueueManager.Manager
 {
-    public class ServiceBusBase<T>
+    public class QueueWorker<T>
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         public event MessageReceiveDelegate<T> MessageRecieved;
@@ -17,10 +17,10 @@ namespace SBQueueManager.Manager
         private readonly QueueClient _myQueueClient;
         private readonly string _connectionString;
         private readonly string _queueName;
-        private const string ConnectionStringAppSetting = "RoutingWorker.ServiceBus.ConnectionString";
+        private const string ConnectionStringAppSetting = "ServiceBus.ConnectionString";
         private Thread _readThread;
 
-        public ServiceBusBase(string queueName)
+        public QueueWorker(string queueName)
         {
             Logger.Debug("Starting LongRunningJob");
             _connectionString = ConfigurationManager.AppSettings[ConnectionStringAppSetting];
@@ -34,31 +34,6 @@ namespace SBQueueManager.Manager
 
             Logger.Debug("Creating CreateQueueClient");
             _myQueueClient = messageFactory.CreateQueueClient(_queueName);
-        }
-
-        /// <summary>
-        /// Creates a queue, note that only the owner users of a queue can create one
-        /// </summary>
-        /// <param name="serviceBusUsers">List of read and write users for the queue</param>
-        public void CreateQueue(IEnumerable<ServiceBusUser> serviceBusUsers)
-        {
-            Logger.Debug("Creating NamespaceManager");
-            NamespaceManager namespaceManager = NamespaceManager.CreateFromConnectionString(_connectionString);
-
-            if (!namespaceManager.QueueExists(_queueName))
-            {
-                Logger.Debug("Creating Queue {0}", _queueName);
-
-                var queue = new QueueDescription(_queueName);
-
-                foreach (var user in serviceBusUsers)
-                {
-                    queue.Authorization.Add(new AllowRule("ServiceBusDefaultNamespace", "nameidentifier",
-                                                          user.UserName + "@" + Environment.GetEnvironmentVariable("USERDNSDOMAIN"),
-                                                          user.GetAccessRights()));
-                }
-                namespaceManager.CreateQueue(queue);
-            }
         }
 
         public void Write(T obj)

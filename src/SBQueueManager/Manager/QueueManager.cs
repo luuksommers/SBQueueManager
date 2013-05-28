@@ -28,7 +28,7 @@ namespace SBQueueManager.Manager
 
         public ObservableCollection<QueueDescription> Queues { get; set; }
 
-        public void CreateQueue(string path, IEnumerable<ServiceBusUser> users)
+        public void CreateQueue(string path, IEnumerable<QueueUser> users)
         {
             if (_namespaceManager.QueueExists(path))
             {
@@ -37,7 +37,7 @@ namespace SBQueueManager.Manager
 
             var queue = new QueueDescription(path);
 
-            foreach (ServiceBusUser user in users)
+            foreach (QueueUser user in users)
             {
                 queue.Authorization.Add(new AllowRule(_nameSpace, "nameidentifier",
                                                       user.UserName + "@" +
@@ -50,15 +50,20 @@ namespace SBQueueManager.Manager
             Queues.Add(queue);
         }
 
-        public void DeleteQueue(string name)
+        public void DeleteQueue(string path)
         {
-            if (!_namespaceManager.QueueExists(name))
+            if (!_namespaceManager.QueueExists(path))
             {
-                throw new QueueException("Queue {0} doesn't exists", name);
+                throw new QueueException("Queue {0} doesn't exists", path);
             }
 
-            _namespaceManager.DeleteQueue(name);
-            Queues.Remove(Queues.First(a => a.Path == name));
+            _namespaceManager.DeleteQueue(path);
+            Queues.Remove(Queues.First(a => a.Path == path));
+        }
+
+        public QueueWorker<T> GetQueueWorker<T>(string path)
+        {
+            return new QueueWorker<T>(path);
         }
     }
 
