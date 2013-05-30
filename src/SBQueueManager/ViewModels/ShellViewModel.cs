@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using Caliburn.Micro;
 using Microsoft.ServiceBus.Messaging;
 using SBQueueManager.Helpers;
@@ -17,7 +18,6 @@ namespace SBQueueManager.ViewModels
         {
             _manager = manager;
             Queues = _manager.Queues;
-            _manager.Queues.CollectionChanged += (sender, args) => NotifyOfPropertyChange(() => Queues);
         }
 
         public void OpenQueue(QueueDescription queue)
@@ -28,7 +28,7 @@ namespace SBQueueManager.ViewModels
 
         public void CreateQueue()
         {
-            DialogHelper.ShowDialog<CreateQueueViewModel>();
+            DialogHelper.ShowDialog(new CreateQueueViewModel(_manager));
         }
     }
 }

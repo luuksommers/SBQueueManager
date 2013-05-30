@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Linq;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
@@ -9,24 +8,22 @@ using NLog;
 
 namespace SBQueueManager.Manager
 {
-    public class QueueManager : IQueueManager
+    public class QueueManager
     {
-        private const string ConnectionStringAppSetting = "ServiceBus.ConnectionString";
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly string _connectionString;
         private readonly string _nameSpace;
         private readonly NamespaceManager _namespaceManager;
+        public ObservableCollection<QueueDescription> Queues { get; set; }
 
-        public QueueManager()
+        public QueueManager(QueueConnectionStringProvider provider)
         {
-            _connectionString = ConfigurationManager.AppSettings[ConnectionStringAppSetting];
+            _connectionString = provider.GetConnectionString();
             _namespaceManager = NamespaceManager.CreateFromConnectionString(_connectionString);
             _nameSpace = _namespaceManager.Address.AbsolutePath.TrimStart('/');
 
             Queues = new ObservableCollection<QueueDescription>(_namespaceManager.GetQueues());
         }
-
-        public ObservableCollection<QueueDescription> Queues { get; set; }
 
         public void CreateQueue(string path, IEnumerable<QueueUser> users)
         {
@@ -63,11 +60,7 @@ namespace SBQueueManager.Manager
 
         public QueueWorker<T> GetQueueWorker<T>(string path)
         {
-            return new QueueWorker<T>(path);
+            return new QueueWorker<T>(_connectionString, path);
         }
-    }
-
-    public interface IQueueManager
-    {
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Threading;
-using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using NLog;
 
@@ -17,17 +14,16 @@ namespace SBQueueManager.Manager
         private readonly QueueClient _myQueueClient;
         private readonly string _connectionString;
         private readonly string _queueName;
-        private const string ConnectionStringAppSetting = "ServiceBus.ConnectionString";
         private Thread _readThread;
 
-        public QueueWorker(string queueName)
+        public QueueWorker(string connectionString, string queueName)
         {
             Logger.Debug("Starting LongRunningJob");
-            _connectionString = ConfigurationManager.AppSettings[ConnectionStringAppSetting];
+            _connectionString = connectionString;
             _queueName = queueName;
 
             Logger.Debug("Using Queue {0}", _queueName);
-            Logger.Debug("Using ConnectionString {0} from the AppSetting: {1}", _connectionString, ConnectionStringAppSetting);
+            Logger.Debug("Using ConnectionString {0} from the AppSetting: {1}", _connectionString, _connectionString);
 
             Logger.Debug("Creating MessagingFactory");
             MessagingFactory messageFactory = MessagingFactory.CreateFromConnectionString(_connectionString);

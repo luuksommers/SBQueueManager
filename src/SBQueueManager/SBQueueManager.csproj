@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="Manager\MessageReceiveDelegateArgs.cs" />
     <Compile Include="Manager\MessageReceiveDelegate.cs" />
+    <Compile Include="Manager\QueueConnectionStringProvider.cs" />
     <Compile Include="Manager\QueueWorker.cs" />
     <Compile Include="Manager\QueueUser.cs" />
     <Compile Include="Views\CreateQueueView.xaml.cs">
