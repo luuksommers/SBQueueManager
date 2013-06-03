@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using Caliburn.Micro;
 using Microsoft.ServiceBus.Messaging;
 using SBQueueManager.Helpers;
@@ -28,7 +29,17 @@ namespace SBQueueManager.ViewModels
 
         public void CreateQueue()
         {
-            DialogHelper.ShowDialog(new CreateQueueViewModel(_manager));
+            DialogHelper.ShowWindow(new CreateQueueViewModel(_manager));
+        }
+
+        public void OpenSettings()
+        {
+            
+        }
+
+        public void OpenCertificateManager()
+        {
+            Process.Start("mmc.exe");
         }
     }
 }

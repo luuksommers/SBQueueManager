@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Caliburn.Micro;
 using Microsoft.ServiceBus.Messaging;
+using SBQueueManager.Helpers;
 using SBQueueManager.Manager;
 
 namespace SBQueueManager.ViewModels
@@ -29,7 +29,13 @@ namespace SBQueueManager.ViewModels
 
         public void Delete()
         {
-            _manager.DeleteQueue(Instance.Path);
+            var dialogVM = new DialogViewModel() {Message = "Are you sure?"};
+            DialogHelper.ShowDialog(dialogVM);
+
+            if (!dialogVM.IsCancelled)
+            {
+                _manager.DeleteQueue(Instance.Path);
+            }
         }
     }
 }

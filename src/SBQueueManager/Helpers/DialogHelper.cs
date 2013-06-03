@@ -5,7 +5,7 @@ namespace SBQueueManager.Helpers
 {
     public class DialogHelper
     {
-        public static void ShowDialog<T>() where T : class
+        public static void ShowWindow<T>() where T : class
         {
             var windowManager = new WindowManager();
             T viewModel = IoC.Get<T>();
@@ -13,10 +13,24 @@ namespace SBQueueManager.Helpers
             windowManager.ShowWindow(viewModel);
         }
 
-        public static void ShowDialog<T>(T viewModel) where T : class
+        public static void ShowWindow<T>(T viewModel) where T : class
         {
             var windowManager = new WindowManager();
             windowManager.ShowWindow(viewModel);
+        }
+
+        public static void ShowDialog<T>() where T : class
+        {
+            var windowManager = new WindowManager();
+            T viewModel = IoC.Get<T>();
+
+            windowManager.ShowDialog(viewModel);
+        }
+
+        public static void ShowDialog<T>(T viewModel) where T : class
+        {
+            var windowManager = new WindowManager();
+            windowManager.ShowDialog(viewModel);
         }
     }
 }

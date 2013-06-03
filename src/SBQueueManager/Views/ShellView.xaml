@@ -12,12 +12,17 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
+    <mahApps:MetroWindow.WindowCommands>
+        <mahApps:WindowCommands>
+            <Button Content="settings" x:Name="OpenSettings" cal:Message.Attach="OpenSettings"  />
+            <Button Content="certificate manager" x:Name="OpenCertificateManager"  cal:Message.Attach="OpenCertificateManager" />
+        </mahApps:WindowCommands>
+    </mahApps:MetroWindow.WindowCommands>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -33,7 +38,17 @@
                  cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenQueue($this)]">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path}" />
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="20" Height="20">
+                            <Rectangle.Resources>
+                                <SolidColorBrush x:Key="BlackBrush" Color="LightGray" />
+                            </Rectangle.Resources>
+                            <Rectangle.Fill>
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_database}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Margin="10,0,0,0" Text="{Binding Path}" />
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
