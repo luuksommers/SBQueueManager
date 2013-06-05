@@ -1,9 +1,9 @@
 ﻿using System;
-using MahApps.Metro.Controls;
+using System.Windows.Controls;
 
 namespace SBQueueManager.Views
 {
-    public partial class CreateQueueView : MetroWindow
+    public partial class CreateQueueView : UserControl
     {
         public CreateQueueView()
         {

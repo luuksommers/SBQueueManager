@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using Caliburn.Micro;
 using Microsoft.ServiceBus.Messaging;
-using SBQueueManager.Helpers;
 using SBQueueManager.Manager;
 
 namespace SBQueueManager.ViewModels
@@ -29,10 +29,11 @@ namespace SBQueueManager.ViewModels
 
         public void Delete()
         {
-            var dialogVM = new DialogViewModel() {Message = "Are you sure?"};
-            DialogHelper.ShowDialog(dialogVM);
+            var result = MessageBox.Show(
+                string.Format("Are you sure you want to delete the queue {0}? This action cannot be undone.", Instance.Path), 
+                "Delete Queue", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if (!dialogVM.IsCancelled)
+            if (result == MessageBoxResult.Yes)
             {
                 _manager.DeleteQueue(Instance.Path);
             }

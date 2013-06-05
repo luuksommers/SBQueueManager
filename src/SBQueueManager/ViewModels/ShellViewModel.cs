@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Linq;
 using Caliburn.Micro;
 using Microsoft.ServiceBus.Messaging;
-using SBQueueManager.Helpers;
 using SBQueueManager.Manager;
 
 namespace SBQueueManager.ViewModels
@@ -13,23 +13,42 @@ namespace SBQueueManager.ViewModels
     {
         private readonly QueueManager _manager;
         public ObservableCollection<QueueDescription> Queues { get; set; }
-        public QueueViewModel SelectedQueue { get; set; }
+
+        // Dynamic
+        public object ContentViewModel { get; set; }
 
         public ShellViewModel(QueueManager manager)
         {
             _manager = manager;
             Queues = _manager.Queues;
+            _manager.Queues.CollectionChanged += Queues_CollectionChanged;
+        }
+
+        void Queues_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+                OpenQueue((QueueDescription) e.NewItems[0]);
+            else if(e.Action == NotifyCollectionChangedAction.Remove)
+                OpenQueue(_manager.Queues.FirstOrDefault());
         }
 
         public void OpenQueue(QueueDescription queue)
         {
-            SelectedQueue = new QueueViewModel(queue, _manager);
-            NotifyOfPropertyChange(() => SelectedQueue);
+            if (queue == null)
+            {
+                ContentViewModel = null;
+            }
+            else
+            {
+                ContentViewModel = new QueueViewModel(queue, _manager);
+            }
+            NotifyOfPropertyChange(() => ContentViewModel);
         }
 
         public void CreateQueue()
         {
-            DialogHelper.ShowWindow(new CreateQueueViewModel(_manager));
+            ContentViewModel = new CreateQueueViewModel(_manager);
+            NotifyOfPropertyChange(() => ContentViewModel);
         }
 
         public void OpenSettings()

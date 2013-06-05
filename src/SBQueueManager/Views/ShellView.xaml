@@ -44,7 +44,11 @@
                                 <SolidColorBrush x:Key="BlackBrush" Color="LightGray" />
                             </Rectangle.Resources>
                             <Rectangle.Fill>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_database}" />
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_database}">
+                                    <VisualBrush.RelativeTransform>
+                                        <RotateTransform CenterX="0.5" CenterY="0.5" Angle="90" />
+                                    </VisualBrush.RelativeTransform>
+                                </VisualBrush>
                             </Rectangle.Fill>
                         </Rectangle>
                         <TextBlock Margin="10,0,0,0" Text="{Binding Path}" />
@@ -53,7 +57,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <ContentControl Grid.Column="1" Grid.RowSpan="2" x:Name="SelectedQueue" HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch" />
+        <ContentControl Grid.Column="1" Grid.RowSpan="2" x:Name="ContentViewModel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>
 </mahApps:MetroWindow>

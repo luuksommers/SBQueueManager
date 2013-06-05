@@ -6,7 +6,7 @@ using SBQueueManager.Manager;
 
 namespace SBQueueManager.ViewModels
 {
-    public class CreateQueueViewModel : Screen
+    public class CreateQueueViewModel : PropertyChangedBase
     {
         private readonly QueueManager _manager;
         private string _path;
@@ -15,7 +15,6 @@ namespace SBQueueManager.ViewModels
         {
             _manager = manager;
             Users = new ObservableCollection<QueueUser>();
-            this.DisplayName = "Create queue";
         }
 
         public string Path
@@ -54,7 +53,6 @@ namespace SBQueueManager.ViewModels
         public void Save()
         {
             _manager.CreateQueue(Path, Users);
-            TryClose();
         }
     }
 }

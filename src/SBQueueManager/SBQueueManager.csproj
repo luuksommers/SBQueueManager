@@ -98,10 +98,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DialogView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\QueueView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -119,7 +115,6 @@
     <Compile Include="Manager\QueueConnectionStringProvider.cs" />
     <Compile Include="Manager\QueueWorker.cs" />
     <Compile Include="Manager\QueueUser.cs" />
-    <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="Views\CreateQueueView.xaml.cs">
       <DependentUpon>CreateQueueView.xaml</DependentUpon>
     </Compile>
@@ -127,9 +122,6 @@
     <Compile Include="Helpers\DialogHelper.cs" />
     <Compile Include="Manager\QueueException.cs" />
     <Compile Include="Manager\QueueManager.cs" />
-    <Compile Include="Views\DialogView.xaml.cs">
-      <DependentUpon>DialogView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\QueueView.xaml.cs">
       <DependentUpon>QueueView.xaml</DependentUpon>
     </Compile>
