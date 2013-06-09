@@ -14,7 +14,7 @@ namespace SBQueueManager.ViewModels
         private readonly QueueManager _manager;
         public ObservableCollection<QueueDescription> Queues { get; set; }
 
-        // Dynamic
+        // Dynamic content object
         public object ContentViewModel { get; set; }
 
         public ShellViewModel(QueueManager manager)
@@ -24,7 +24,7 @@ namespace SBQueueManager.ViewModels
             _manager.Queues.CollectionChanged += Queues_CollectionChanged;
         }
 
-        void Queues_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        void Queues_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
                 OpenQueue((QueueDescription) e.NewItems[0]);
@@ -35,13 +35,10 @@ namespace SBQueueManager.ViewModels
         public void OpenQueue(QueueDescription queue)
         {
             if (queue == null)
-            {
                 ContentViewModel = null;
-            }
             else
-            {
                 ContentViewModel = new QueueViewModel(queue, _manager);
-            }
+            
             NotifyOfPropertyChange(() => ContentViewModel);
         }
 
@@ -51,9 +48,10 @@ namespace SBQueueManager.ViewModels
             NotifyOfPropertyChange(() => ContentViewModel);
         }
 
-        public void OpenSettings()
+        public void OpenHelp()
         {
-            
+            ContentViewModel = new HelpViewModel();
+            NotifyOfPropertyChange(() => ContentViewModel);
         }
 
         public void OpenCertificateManager()

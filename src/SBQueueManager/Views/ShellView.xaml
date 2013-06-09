@@ -3,7 +3,7 @@
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                      xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-                     Title="Service Bus Queue Manager" Height="600" Width="910" MinWidth="910">
+                     Title="Service Bus Queue Manager" Height="600" MinHeight="600" Width="910" MinWidth="910">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -19,7 +19,7 @@
     </Window.Resources>
     <mahApps:MetroWindow.WindowCommands>
         <mahApps:WindowCommands>
-            <Button Content="settings" x:Name="OpenSettings" cal:Message.Attach="OpenSettings"  />
+            <Button Content="help" x:Name="OpenHelp" cal:Message.Attach="OpenHelp"  />
             <Button Content="certificate manager" x:Name="OpenCertificateManager"  cal:Message.Attach="OpenCertificateManager" />
         </mahApps:WindowCommands>
     </mahApps:MetroWindow.WindowCommands>
@@ -57,6 +57,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <ContentControl Grid.Column="1" Grid.RowSpan="2" x:Name="ContentViewModel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <ContentControl Margin="20,0,0,0" Grid.Column="1" Grid.RowSpan="2" x:Name="ContentViewModel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>
 </mahApps:MetroWindow>
