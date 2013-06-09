@@ -8,11 +8,15 @@
 
     <Grid Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Help" FontSize="30" FontWeight="Bold"/>
+        <TextBlock Grid.Row="0" Text="Help" FontSize="30" FontWeight="Bold"/>
+        <TextBlock Grid.Row="1" TextWrapping="Wrap">
+            To use a Service bus that is not running on your current machine, you need to import the certificates. These can be generated on the Service Bus machine by calling the SB-GetCertificate in the PowerShell. These files can than be imported on the local machine using the Certificate manager (see action bar). Click on file -> Add Snap In -> Certificate Manager and add the generated files as Root Authority. This should fix the security error.
+        </TextBlock>
     </Grid>
 </UserControl>
