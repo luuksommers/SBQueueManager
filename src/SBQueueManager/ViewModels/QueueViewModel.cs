@@ -38,5 +38,22 @@ namespace SBQueueManager.ViewModels
                 _manager.DeleteQueue(Instance.Path);
             }
         }
+
+
+        public string UserName { get; set; }
+        public bool UserAllowListen { get; set; }
+        public bool UserAllowSend { get; set; }
+
+        public void AddUser()
+        {
+            var user = new QueueUser();
+            user.UserName = UserName;
+            user.AllowListen = UserAllowListen;
+            user.AllowSend = UserAllowSend;
+
+            _manager.AddUser(Instance, user);
+
+            _manager.UpdateQueue(Instance);
+        }
     }
 }

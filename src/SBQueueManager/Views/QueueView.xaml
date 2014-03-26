@@ -80,6 +80,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <DataGrid Grid.Row="0" x:Name="Users" Validation.ErrorTemplate="{x:Null}" CanUserAddRows="false"
                               SelectedItem="{Binding Path=SelectedAuthorization,Mode=TwoWay}"
@@ -114,6 +115,13 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
+                    <StackPanel  Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Text="User" VerticalAlignment="Center" />
+                        <TextBox x:Name="UserName" Height="25" VerticalAlignment="Center" />
+                        <CheckBox x:Name="UserAllowListen" Content="Read" Margin="5" VerticalAlignment="Center" />
+                        <CheckBox x:Name="UserAllowSend" Content="Write" Margin="5" VerticalAlignment="Center" />
+                        <Button x:Name="AddUser" Content="Add" Margin="5" HorizontalAlignment="Left" Width="50" />
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>

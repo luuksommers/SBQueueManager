@@ -36,10 +36,7 @@ namespace SBQueueManager.Manager
 
             foreach (QueueUser user in users)
             {
-                queue.Authorization.Add(new AllowRule(_nameSpace, "nameidentifier",
-                                                      user.UserName + "@" +
-                                                      Environment.GetEnvironmentVariable("USERDNSDOMAIN"),
-                                                      user.GetAccessRights()));
+                AddUser(queue, user);
             }
 
             queue = _namespaceManager.CreateQueue(queue);
@@ -56,6 +53,19 @@ namespace SBQueueManager.Manager
 
             _namespaceManager.DeleteQueue(path);
             Queues.Remove(Queues.First(a => a.Path == path));
+        }
+
+        public void AddUser(QueueDescription queue, QueueUser user)
+        {
+            queue.Authorization.Add(new AllowRule(_nameSpace, "nameidentifier",
+                                                     user.UserName + "@" +
+                                                     Environment.GetEnvironmentVariable("USERDNSDOMAIN"),
+                                                     user.GetAccessRights()));
+        }
+
+        public void UpdateQueue(QueueDescription queue)
+        {
+            _namespaceManager.UpdateQueue(queue);
         }
 
         public QueueWorker<T> GetQueueWorker<T>(string path)
