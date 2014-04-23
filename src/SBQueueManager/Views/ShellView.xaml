@@ -8,9 +8,9 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
@@ -26,6 +26,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -34,7 +35,7 @@
         </Grid.ColumnDefinitions>
         <Button Grid.Column="0" Grid.Row="0" x:Name="CreateQueue" Content="Create Queue" Margin="5" />
         <ListBox Grid.Column="0" Grid.Row="1" x:Name="Queues" Validation.ErrorTemplate="{x:Null}" Margin="5" Width="180" ItemsSource="{Binding Path=Queues, UpdateSourceTrigger=PropertyChanged}"
-                 HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderBrush="Black"
+                 HorizontalAlignment="Left" BorderBrush="Black"
                  cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenQueue($this)]">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -45,6 +46,30 @@
                             </Rectangle.Resources>
                             <Rectangle.Fill>
                                 <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_database}">
+                                    <VisualBrush.RelativeTransform>
+                                        <RotateTransform CenterX="0.5" CenterY="0.5" Angle="90" />
+                                    </VisualBrush.RelativeTransform>
+                                </VisualBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Margin="10,0,0,0" Text="{Binding Path}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+        <ListBox Grid.Column="0" Grid.Row="2" x:Name="Topics" Validation.ErrorTemplate="{x:Null}" Margin="5" Width="180" ItemsSource="{Binding Path=Topics, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left" BorderBrush="Black"
+                 cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenTopic($this)]">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="20" Height="20">
+                            <Rectangle.Resources>
+                                <SolidColorBrush x:Key="BlackBrush" Color="LightGray" />
+                            </Rectangle.Resources>
+                            <Rectangle.Fill>
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_tiles_four}">
                                     <VisualBrush.RelativeTransform>
                                         <RotateTransform CenterX="0.5" CenterY="0.5" Angle="90" />
                                     </VisualBrush.RelativeTransform>

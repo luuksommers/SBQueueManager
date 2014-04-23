@@ -50,9 +50,14 @@ namespace SBQueueManager.ViewModels
             Users.Add(user);
         }
 
-        public void Save()
+        public void SaveQueue()
         {
             _manager.CreateQueue(Path, Users);
+        }
+
+        public void SaveTopic()
+        {
+            _manager.CreateTopic(Path, Users);
         }
     }
 }

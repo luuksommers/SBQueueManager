@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
 using Microsoft.ServiceBus.Messaging;
+using NLog;
 using SBQueueManager.Manager;
 
 namespace SBQueueManager.ViewModels
@@ -54,6 +55,11 @@ namespace SBQueueManager.ViewModels
             _manager.AddUser(Instance, user);
 
             _manager.UpdateQueue(Instance);
+        }
+
+        public void ReadMessage()
+        {
+            _manager.ReadMessage(Instance);
         }
     }
 }

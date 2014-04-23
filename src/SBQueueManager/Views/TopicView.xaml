@@ -1,0 +1,134 @@
+﻿<UserControl x:Class="SBQueueManager.Views.TopicView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="750">
+    <Grid>
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TabItem Header="General">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Path" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="CreatedAt" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="DefaultMessageTimeToLive" />
+                    <Label Grid.Row="3" Grid.Column="0" Content="DuplicateDetectionHistoryTimeWindow" />
+                    <Label Grid.Row="4" Grid.Column="0" Content="EnableBatchedOperations" />
+                    <Label Grid.Row="5" Grid.Column="0" Content="EnableFilteringMessagesBeforePublishing" />
+                    <Label Grid.Row="6" Grid.Column="0" Content="IsAnonymousAccessible" />
+                    <Label Grid.Row="7" Grid.Column="0" Content="UpdatedAt" />
+
+                    <Label Grid.Row="0" Grid.Column="2" Content="MaxSizeInMegabytes" />
+                    <Label Grid.Row="1" Grid.Column="2" Content="ActiveMessageCount" />
+                    <Label Grid.Row="2" Grid.Column="2" Content="DeadLetterMessageCount" />
+                    <Label Grid.Row="3" Grid.Column="2" Content="ScheduledMessageCount" />
+                    <Label Grid.Row="4" Grid.Column="2" Content="TransferDeadLetterMessageCount" />
+                    <Label Grid.Row="5" Grid.Column="2" Content="TransferMessageCount" />
+
+                    <Label Grid.Row="6" Grid.Column="2" Content="RequiresDuplicateDetection" />
+                    <Label Grid.Row="7" Grid.Column="2" Content="SizeInBytes" />
+                    <Label Grid.Row="8" Grid.Column="2" Content="Status" />
+                    <Label Grid.Row="9" Grid.Column="2" Content="SubscriptionCount" />
+                    <Label Grid.Row="10" Grid.Column="2" Content="SupportOrdering" />
+                    <Label Grid.Row="11" Grid.Column="2" Content="UserMetadata" />
+
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="Instance_Path" />
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="Instance_CreatedAt" />
+                    <Label Grid.Row="2" Grid.Column="1" x:Name="Instance_DefaultMessageTimeToLive" />
+                    <Label Grid.Row="3" Grid.Column="1" x:Name="Instance_DuplicateDetectionHistoryTimeWindow" />
+                    <Label Grid.Row="4" Grid.Column="1" x:Name="Instance_EnableBatchedOperations" />
+                    <Label Grid.Row="5" Grid.Column="1" x:Name="Instance_EnableFilteringMessagesBeforePublishing" />
+                    <Label Grid.Row="6" Grid.Column="1" x:Name="Instance_IsAnonymousAccessible" />
+                    <Label Grid.Row="7" Grid.Column="1" x:Name="Instance_UpdatedAt" />
+
+                    <Label Grid.Row="0" Grid.Column="3" x:Name="Instance_MaxSizeInMegabytes" />
+                    <Label Grid.Row="1" Grid.Column="3" x:Name="Instance_MessageCountDetails_ActiveMessageCount" />
+                    <Label Grid.Row="2" Grid.Column="3" x:Name="Instance_MessageCountDetails_DeadLetterMessageCount" />
+                    <Label Grid.Row="3" Grid.Column="3" x:Name="Instance_MessageCountDetails_ScheduledMessageCount" />
+                    <Label Grid.Row="4" Grid.Column="3" x:Name="Instance_MessageCountDetails_TransferDeadLetterMessageCount" />
+                    <Label Grid.Row="5" Grid.Column="3" x:Name="Instance_MessageCountDetails_TransferMessageCount" />
+
+                    <Label Grid.Row="7" Grid.Column="3" x:Name="Instance_RequiresDuplicateDetection" />
+                    <Label Grid.Row="8" Grid.Column="3" x:Name="Instance_SizeInBytes" />
+                    <Label Grid.Row="9" Grid.Column="3" x:Name="Instance_Status" />
+                    <Label Grid.Row="10" Grid.Column="3" x:Name="Instance_SubscriptionCount" />
+                    <Label Grid.Row="11" Grid.Column="3" x:Name="Instance_SupportOrdering" />
+                    <Label Grid.Row="12" Grid.Column="3" x:Name="Instance_UserMetadata" />
+
+                    <Button Grid.Row="13" Grid.ColumnSpan="2" Grid.Column="3" Margin="5" x:Name="Delete" Content="Delete" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Authorization">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Row="0" x:Name="Users" Validation.ErrorTemplate="{x:Null}" CanUserAddRows="false"
+                              SelectedItem="{Binding Path=SelectedAuthorization,Mode=TwoWay}"
+                              AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="UserName" Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                                 Text="{Binding UserName}">
+                                        </TextBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Allow Read" Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                  IsChecked="{Binding AllowListen}">
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Allow Write" Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                  IsChecked="{Binding AllowSend}">
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel  Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Text="User" VerticalAlignment="Center" />
+                        <TextBox x:Name="UserName" Height="25" VerticalAlignment="Center" />
+                        <CheckBox x:Name="UserAllowListen" Content="Read" Margin="5" VerticalAlignment="Center" />
+                        <CheckBox x:Name="UserAllowSend" Content="Write" Margin="5" VerticalAlignment="Center" />
+                        <Button x:Name="AddUser" Content="Add" Margin="5" HorizontalAlignment="Left" Width="50" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

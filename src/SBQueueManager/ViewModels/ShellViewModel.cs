@@ -13,6 +13,7 @@ namespace SBQueueManager.ViewModels
     {
         private readonly QueueManager _manager;
         public ObservableCollection<QueueDescription> Queues { get; set; }
+        public ObservableCollection<TopicDescription> Topics { get; set; }
 
         // Dynamic content object
         public object ContentViewModel { get; set; }
@@ -21,6 +22,7 @@ namespace SBQueueManager.ViewModels
         {
             _manager = manager;
             Queues = _manager.Queues;
+            Topics = _manager.Topics;
             _manager.Queues.CollectionChanged += Queues_CollectionChanged;
         }
 
@@ -39,6 +41,16 @@ namespace SBQueueManager.ViewModels
             else
                 ContentViewModel = new QueueViewModel(queue, _manager);
             
+            NotifyOfPropertyChange(() => ContentViewModel);
+        }
+
+        public void OpenTopic(TopicDescription topic)
+        {
+            if (topic == null)
+                ContentViewModel = null;
+            else
+                ContentViewModel = new TopicViewModel(topic, _manager);
+
             NotifyOfPropertyChange(() => ContentViewModel);
         }
 
