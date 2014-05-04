@@ -3,9 +3,9 @@ using System.Windows.Controls;
 
 namespace SBQueueManager.Views
 {
-    public partial class CreateQueueView : UserControl
+    public partial class CreateEntityView : UserControl
     {
-        public CreateQueueView()
+        public CreateEntityView()
         {
             InitializeComponent();
         }

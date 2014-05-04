@@ -3,7 +3,9 @@
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                      xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-                     Title="Service Bus Queue Manager" Height="600" MinHeight="600" Width="910" MinWidth="910">
+                     xmlns:messaging="clr-namespace:Microsoft.ServiceBus.Messaging;assembly=Microsoft.ServiceBus"
+                     Title="Service Bus Queue Manager" Height="600" MinHeight="600" Width="910" MinWidth="910"
+                     >
 
     <Window.Resources>
         <ResourceDictionary>
@@ -15,6 +17,42 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type messaging:QueueDescription}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Resources>
+                            <SolidColorBrush x:Key="BlackBrush" Color="LightGray" />
+                        </Rectangle.Resources>
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_database}">
+                                <VisualBrush.RelativeTransform>
+                                    <RotateTransform CenterX="0.5" CenterY="0.5" Angle="90" />
+                                </VisualBrush.RelativeTransform>
+                            </VisualBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock Margin="10,0,0,0" Text="{Binding Path}" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type messaging:TopicDescription}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Resources>
+                            <SolidColorBrush x:Key="BlackBrush" Color="LightGray" />
+                        </Rectangle.Resources>
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_tiles_four}">
+                                <VisualBrush.RelativeTransform>
+                                    <RotateTransform CenterX="0.5" CenterY="0.5" Angle="90" />
+                                </VisualBrush.RelativeTransform>
+                            </VisualBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock Margin="10,0,0,0" Text="{Binding Path}" />
+                </StackPanel>
+            </DataTemplate>
+            <CollectionViewSource x:Key="queues" Source="{Binding Queues}"/>
+            <CollectionViewSource x:Key="topics" Source="{Binding Topics}"/>
         </ResourceDictionary>
     </Window.Resources>
     <mahApps:MetroWindow.WindowCommands>
@@ -26,62 +64,31 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" x:Name="CreateQueue" Content="Create Queue" Margin="5" />
-        <ListBox Grid.Column="0" Grid.Row="1" x:Name="Queues" Validation.ErrorTemplate="{x:Null}" Margin="5" Width="180" ItemsSource="{Binding Path=Queues, UpdateSourceTrigger=PropertyChanged}"
+        <Button Grid.Column="0" Grid.Row="0" x:Name="AddNew" Content="Add New" Margin="5" />
+        <ListBox Grid.Column="0" Grid.Row="1" Validation.ErrorTemplate="{x:Null}" 
+                 Margin="5" Width="180"
                  HorizontalAlignment="Left" BorderBrush="Black"
-                 cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenQueue($this)]">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Rectangle Width="20" Height="20">
-                            <Rectangle.Resources>
-                                <SolidColorBrush x:Key="BlackBrush" Color="LightGray" />
-                            </Rectangle.Resources>
-                            <Rectangle.Fill>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_database}">
-                                    <VisualBrush.RelativeTransform>
-                                        <RotateTransform CenterX="0.5" CenterY="0.5" Angle="90" />
-                                    </VisualBrush.RelativeTransform>
-                                </VisualBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <TextBlock Margin="10,0,0,0" Text="{Binding Path}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        
-        <ListBox Grid.Column="0" Grid.Row="2" x:Name="Topics" Validation.ErrorTemplate="{x:Null}" Margin="5" Width="180" ItemsSource="{Binding Path=Topics, UpdateSourceTrigger=PropertyChanged}"
-                 HorizontalAlignment="Left" BorderBrush="Black"
-                 cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenTopic($this)]">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Rectangle Width="20" Height="20">
-                            <Rectangle.Resources>
-                                <SolidColorBrush x:Key="BlackBrush" Color="LightGray" />
-                            </Rectangle.Resources>
-                            <Rectangle.Fill>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_tiles_four}">
-                                    <VisualBrush.RelativeTransform>
-                                        <RotateTransform CenterX="0.5" CenterY="0.5" Angle="90" />
-                                    </VisualBrush.RelativeTransform>
-                                </VisualBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <TextBlock Margin="10,0,0,0" Text="{Binding Path}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+                 cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenEntity($this)]">
+            <ListBox.ItemsSource>
+                <CompositeCollection>
+                    <CollectionContainer Collection="{Binding Source={StaticResource queues}}" />
+                    <CollectionContainer Collection="{Binding Source={StaticResource topics}}" />
+                </CompositeCollection>
+            </ListBox.ItemsSource>
         </ListBox>
 
-        <ContentControl Margin="20,0,0,0" Grid.Column="1" Grid.RowSpan="2" x:Name="ContentViewModel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <ContentControl 
+            Margin="20,0,0,0" 
+            Grid.Column="1" 
+            Grid.RowSpan="2" 
+            x:Name="ContentViewModel" 
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch" />
     </Grid>
 </mahApps:MetroWindow>

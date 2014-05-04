@@ -16,7 +16,7 @@ namespace SBQueueManager
             var builder = new ContainerBuilder();
 
             builder.RegisterType<QueueConnectionStringProvider>();
-            builder.RegisterType<QueueManager>();
+            builder.RegisterType<ServiceBusManager>();
             builder.RegisterType<WindowManager>().AsImplementedInterfaces();
             builder.RegisterType<EventAggregator>().AsImplementedInterfaces();
 

@@ -6,12 +6,12 @@ using SBQueueManager.Manager;
 
 namespace SBQueueManager.ViewModels
 {
-    public class CreateQueueViewModel : PropertyChangedBase
+    public class CreateEntityViewModel : PropertyChangedBase
     {
-        private readonly QueueManager _manager;
+        private readonly ServiceBusManager _manager;
         private string _path;
 
-        public CreateQueueViewModel(QueueManager manager)
+        public CreateEntityViewModel(ServiceBusManager manager)
         {
             _manager = manager;
             Users = new ObservableCollection<QueueUser>();

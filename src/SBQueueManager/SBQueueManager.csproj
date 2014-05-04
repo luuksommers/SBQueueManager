@@ -102,7 +102,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CreateQueueView.xaml">
+    <Page Include="Views\CreateEntityView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -129,16 +129,16 @@
     <Compile Include="Manager\QueueWorker.cs" />
     <Compile Include="Manager\QueueUser.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
-    <Compile Include="Views\CreateQueueView.xaml.cs">
-      <DependentUpon>CreateQueueView.xaml</DependentUpon>
+    <Compile Include="Views\CreateEntityView.xaml.cs">
+      <DependentUpon>CreateEntityView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HelpView.xaml.cs">
       <DependentUpon>HelpView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\CreateQueueViewModel.cs" />
+    <Compile Include="ViewModels\CreateEntityViewModel.cs" />
     <Compile Include="Helpers\DialogHelper.cs" />
     <Compile Include="Manager\QueueException.cs" />
-    <Compile Include="Manager\QueueManager.cs" />
+    <Compile Include="Manager\ServiceBusManager.cs" />
     <Compile Include="Views\QueueView.xaml.cs">
       <DependentUpon>QueueView.xaml</DependentUpon>
     </Compile>

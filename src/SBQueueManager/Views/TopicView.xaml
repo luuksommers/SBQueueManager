@@ -35,9 +35,9 @@
                     <Label Grid.Row="0" Grid.Column="0" Content="Path" />
                     <Label Grid.Row="1" Grid.Column="0" Content="CreatedAt" />
                     <Label Grid.Row="2" Grid.Column="0" Content="DefaultMessageTimeToLive" />
-                    <Label Grid.Row="3" Grid.Column="0" Content="DuplicateDetectionHistoryTimeWindow" />
+                    <Label Grid.Row="3" Grid.Column="0" Content="Dupl. Det. HistoryTimeWindow" />
                     <Label Grid.Row="4" Grid.Column="0" Content="EnableBatchedOperations" />
-                    <Label Grid.Row="5" Grid.Column="0" Content="EnableFilteringMessagesBeforePublishing" />
+                    <Label Grid.Row="5" Grid.Column="0" Content="EnableFilteringMess. Bef. Publ." />
                     <Label Grid.Row="6" Grid.Column="0" Content="IsAnonymousAccessible" />
                     <Label Grid.Row="7" Grid.Column="0" Content="UpdatedAt" />
 
@@ -78,7 +78,9 @@
                     <Label Grid.Row="11" Grid.Column="3" x:Name="Instance_SupportOrdering" />
                     <Label Grid.Row="12" Grid.Column="3" x:Name="Instance_UserMetadata" />
 
-                    <Button Grid.Row="13" Grid.ColumnSpan="2" Grid.Column="3" Margin="5" x:Name="Delete" Content="Delete" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" />
+                    <StackPanel Grid.Row="13" Grid.ColumnSpan="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
+                        <Button Margin="5" x:Name="Delete" Content="Delete" Width="100" />
+                    </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="Authorization">
@@ -122,10 +124,38 @@
                     </DataGrid>
                     <StackPanel  Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
                         <TextBlock Text="User" VerticalAlignment="Center" />
-                        <TextBox x:Name="UserName" Height="25" VerticalAlignment="Center" />
+                        <TextBox x:Name="UserName" Height="25" Width="300" VerticalAlignment="Center" />
                         <CheckBox x:Name="UserAllowListen" Content="Read" Margin="5" VerticalAlignment="Center" />
                         <CheckBox x:Name="UserAllowSend" Content="Write" Margin="5" VerticalAlignment="Center" />
                         <Button x:Name="AddUser" Content="Add" Margin="5" HorizontalAlignment="Left" Width="50" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Subscriptions">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Row="0" x:Name="Subscriptions" Validation.ErrorTemplate="{x:Null}" CanUserAddRows="false"
+                              SelectedItem="{Binding Path=SelectedSubscription,Mode=TwoWay}"
+                              AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Name" Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                                 Text="{Binding Name}">
+                                        </TextBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel  Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                        <TextBlock Text="Subscription" VerticalAlignment="Center" />
+                        <TextBox x:Name="SubscriptionName" Height="25" Width="300" VerticalAlignment="Center" />
+                        <Button x:Name="AddSubscription" Content="Add" Margin="5" HorizontalAlignment="Left" Width="50" />
                     </StackPanel>
                 </Grid>
             </TabItem>

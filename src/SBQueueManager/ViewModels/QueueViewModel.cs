@@ -11,12 +11,12 @@ namespace SBQueueManager.ViewModels
 {
     public class QueueViewModel : PropertyChangedBase
     {
-        private readonly QueueManager _manager;
+        private readonly ServiceBusManager _manager;
         public QueueDescription Instance { get; set; }
         public ObservableCollection<QueueUser> Users { get; set; }
         public AuthorizationRule SelectedAuthorization { get; set; }
 
-        public QueueViewModel(QueueDescription queueInstance, QueueManager manager)
+        public QueueViewModel(QueueDescription queueInstance, ServiceBusManager manager)
         {
             _manager = manager;
             Instance = queueInstance;

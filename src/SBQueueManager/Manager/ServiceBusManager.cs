@@ -8,7 +8,7 @@ using NLog;
 
 namespace SBQueueManager.Manager
 {
-    public class QueueManager
+    public class ServiceBusManager
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly string _connectionString;
@@ -16,7 +16,7 @@ namespace SBQueueManager.Manager
         private readonly NamespaceManager _namespaceManager;
         
 
-        public QueueManager(QueueConnectionStringProvider provider)
+        public ServiceBusManager(QueueConnectionStringProvider provider)
         {
             _connectionString = provider.GetConnectionString();
             _namespaceManager = NamespaceManager.CreateFromConnectionString(_connectionString);
@@ -53,8 +53,6 @@ namespace SBQueueManager.Manager
             {
                 throw new QueueException("Topic {0} already exists", path);
             }
-
-            
 
             var topic = new TopicDescription(path);
             foreach (QueueUser user in users)
@@ -116,7 +114,22 @@ namespace SBQueueManager.Manager
         {
             _namespaceManager.UpdateTopic(topic);
         }
-		
+
+        internal IEnumerable<SubscriptionDescription> GetSubscriptions(TopicDescription topic)
+        {
+            return _namespaceManager.GetSubscriptions(topic.Path);
+        }
+
+        internal SubscriptionDescription AddSubscription(SubscriptionDescription description)
+        {
+            return _namespaceManager.CreateSubscription(description);
+        }
+
+        internal void RemoveSubscription(TopicDescription topic, string name)
+        {
+            _namespaceManager.DeleteSubscription(topic.Path, name);
+        }
+        
         public QueueWorker<T> GetQueueWorker<T>(string path)
         {
             return new QueueWorker<T>(_connectionString, path);
