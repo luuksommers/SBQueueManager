@@ -16,9 +16,9 @@ namespace SBQueueManager.Manager
         private readonly NamespaceManager _namespaceManager;
         
 
-        public ServiceBusManager(QueueConnectionStringProvider provider)
+        public ServiceBusManager(string connectionString)
         {
-            _connectionString = provider.GetConnectionString();
+            _connectionString = connectionString;
             _namespaceManager = NamespaceManager.CreateFromConnectionString(_connectionString);
             _nameSpace = _namespaceManager.Address.AbsolutePath.TrimStart('/');
 
@@ -105,14 +105,14 @@ namespace SBQueueManager.Manager
                                                      user.GetAccessRights()));
         }
 
-        public void UpdateQueue(QueueDescription queue)
+        internal QueueDescription UpdateQueue(QueueDescription queue)
         {
-            _namespaceManager.UpdateQueue(queue);
+            return _namespaceManager.UpdateQueue(queue);
         }
 
-        internal void UpdateTopic(TopicDescription topic)
+        internal TopicDescription UpdateTopic(TopicDescription topic)
         {
-            _namespaceManager.UpdateTopic(topic);
+            return _namespaceManager.UpdateTopic(topic);
         }
 
         internal IEnumerable<SubscriptionDescription> GetSubscriptions(TopicDescription topic)
@@ -135,7 +135,7 @@ namespace SBQueueManager.Manager
             return new QueueWorker<T>(_connectionString, path);
         }
 
-        public void ReadMessage(QueueDescription instance)
+        public bool ReadMessage(QueueDescription instance)
         {
             Logger.Debug("Creating MessagingFactory");
             MessagingFactory messageFactory = MessagingFactory.CreateFromConnectionString(_connectionString);
@@ -150,7 +150,9 @@ namespace SBQueueManager.Manager
                 message.Complete();
 
                 _namespaceManager.UpdateQueue(instance);
+                return true;
             }
+            return false;
         }
     }
 }

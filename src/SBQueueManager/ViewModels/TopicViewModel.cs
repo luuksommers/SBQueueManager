@@ -58,7 +58,7 @@ namespace SBQueueManager.ViewModels
             _manager.AddUser(Instance, user);
             _manager.UpdateTopic(Instance);
 
-            Users.Add(user);
+            NotifyOfPropertyChange(() => Instance);
         }
 
         public string SubscriptionName { get; set; }
@@ -70,6 +70,8 @@ namespace SBQueueManager.ViewModels
             _manager.UpdateTopic(Instance);
 
             Subscriptions.Add(subscription);
+
+            NotifyOfPropertyChange(() => Instance);
         }
     }
 }
