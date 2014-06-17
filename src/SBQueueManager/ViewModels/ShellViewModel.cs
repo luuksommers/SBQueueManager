@@ -32,7 +32,7 @@ namespace SBQueueManager.ViewModels
         protected override void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-            string connectionString = Settings.Default.ConnectionString ?? System.Configuration.ConfigurationManager.AppSettings["ServiceBus.ConnectionString"];
+            string connectionString = Settings.Default.ConnectionString ?? System.Configuration.ConfigurationManager.AppSettings["Microsoft.ServiceBus.ConnectionString"];
             if (string.IsNullOrWhiteSpace(connectionString) || !SetManager(connectionString))
                 OpenConnectionStringManager();
         }
@@ -52,10 +52,21 @@ namespace SBQueueManager.ViewModels
                 Topics = _manager.Topics;
                 Queues.CollectionChanged += Queues_CollectionChanged;
                 Topics.CollectionChanged += Topics_CollectionChanged;
+
                 NotifyOfPropertyChange(() => CanAddNew);
+                NotifyOfPropertyChange(() => Queues);
+                NotifyOfPropertyChange(() => Topics);
             }
             catch (Exception e)
             {
+                _manager = null;
+                Queues = null;
+                Topics = null;
+
+                NotifyOfPropertyChange(() => CanAddNew);
+                NotifyOfPropertyChange(() => Queues);
+                NotifyOfPropertyChange(() => Topics);
+
                 MessageBox.Show(e.Message, "Exception occured", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }

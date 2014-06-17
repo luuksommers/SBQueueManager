@@ -57,7 +57,7 @@ namespace SBQueueManager.ViewModels
 
             _manager.AddUser(Instance, user);
             _manager.UpdateTopic(Instance);
-
+            Users.Add(user);
             NotifyOfPropertyChange(() => Instance);
         }
 
