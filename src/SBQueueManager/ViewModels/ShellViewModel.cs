@@ -2,7 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using Caliburn.Micro;
 using Microsoft.ServiceBus.Messaging;
 using SBQueueManager.Manager;
@@ -13,31 +16,53 @@ namespace SBQueueManager.ViewModels
     public class ShellViewModel : Screen
     {
         private ServiceBusManager _manager;
+        private object _contentViewModel;
         public ObservableCollection<QueueDescription> Queues { get; set; }
         public ObservableCollection<TopicDescription> Topics { get; set; }
 
         // Dynamic content object
-        public object ContentViewModel { get; set; }
+        public object ContentViewModel
+        {
+            get { return _contentViewModel; }
+            set
+            {
+                if (Equals(value, _contentViewModel)) return;
+                _contentViewModel = value;
+                NotifyOfPropertyChange(() => ContentViewModel);
+            }
+        }
 
         public bool CanAddNew
         {
             get { return _manager != null; }
         }
 
-        public ShellViewModel()
+        public override string DisplayName
         {
-            DisplayName = "Service Bus For Windows Queue Manager";
+            get { return "Service Bus For Windows Queue Manager"; }
+            set { }
         }
 
-        protected override void OnViewLoaded(object view)
+        protected override async void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-            string connectionString = Settings.Default.ConnectionString ?? System.Configuration.ConfigurationManager.AppSettings["Microsoft.ServiceBus.ConnectionString"];
-            if (string.IsNullOrWhiteSpace(connectionString) || !SetManager(connectionString))
-                OpenConnectionStringManager();
+            ContentViewModel = new LoadingViewModel();
+            await Task.Run(() => LoadOrSetConnection());
         }
 
-        public bool SetManager(string connectionString)
+        private void LoadOrSetConnection()
+        {
+            var connectionString = string.IsNullOrWhiteSpace(Settings.Default.ConnectionString)
+                ? System.Configuration.ConfigurationManager.AppSettings["Microsoft.ServiceBus.ConnectionString"]
+                : Settings.Default.ConnectionString;
+            
+            if (string.IsNullOrWhiteSpace(connectionString))
+                OpenConnectionStringManager();
+            else
+                SetManager(connectionString);
+        }
+
+        public void SetManager(string connectionString)
         {
             try
             {
@@ -53,6 +78,8 @@ namespace SBQueueManager.ViewModels
                 Queues.CollectionChanged += Queues_CollectionChanged;
                 Topics.CollectionChanged += Topics_CollectionChanged;
 
+                ContentViewModel = null;
+
                 NotifyOfPropertyChange(() => CanAddNew);
                 NotifyOfPropertyChange(() => Queues);
                 NotifyOfPropertyChange(() => Topics);
@@ -67,10 +94,8 @@ namespace SBQueueManager.ViewModels
                 NotifyOfPropertyChange(() => Queues);
                 NotifyOfPropertyChange(() => Topics);
 
-                MessageBox.Show(e.Message, "Exception occured", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
+                OpenConnectionStringManager(e.Message);
             }
-            return true;
         }
 
         void Queues_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -97,25 +122,22 @@ namespace SBQueueManager.ViewModels
                 ContentViewModel = new QueueViewModel((QueueDescription)entity, _manager);
             else if (entity is TopicDescription)
                 ContentViewModel = new TopicViewModel((TopicDescription)entity, _manager);
-            NotifyOfPropertyChange(() => ContentViewModel);
         }
 
         public void AddNew()
         {
             ContentViewModel = new CreateEntityViewModel(_manager);
-            NotifyOfPropertyChange(() => ContentViewModel);
         }
 
-        public void OpenConnectionStringManager()
+        public void OpenConnectionStringManager(string message = null)
         {
             ContentViewModel = new ConnectionStringViewModel(this);
-            NotifyOfPropertyChange(() => ContentViewModel);
+            ((ConnectionStringViewModel)ContentViewModel).Message = message;
         }
 
         public void OpenHelp()
         {
             ContentViewModel = new HelpViewModel();
-            NotifyOfPropertyChange(() => ContentViewModel);
         }
 
         public void OpenCertificateManager()

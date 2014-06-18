@@ -95,6 +95,13 @@ namespace SBQueueManager.Manager
                                                      user.UserName + "@" +
                                                      Environment.GetEnvironmentVariable("USERDNSDOMAIN"),
                                                      user.GetAccessRights()));
+            UpdateQueue(queue);
+        }
+
+        public void DeleteUser(QueueDescription queue, QueueUser user)
+        {
+            queue.Authorization.Remove(queue.Authorization.Single(a=>a.ClaimValue.StartsWith(user.UserName)));
+            UpdateQueue(queue);
         }
 
         public void AddUser(TopicDescription topic, QueueUser user)
@@ -103,7 +110,15 @@ namespace SBQueueManager.Manager
                                                      user.UserName + "@" +
                                                      Environment.GetEnvironmentVariable("USERDNSDOMAIN"),
                                                      user.GetAccessRights()));
+            UpdateTopic(topic);
         }
+
+        public void DeleteUser(TopicDescription topic, QueueUser user)
+        {
+            topic.Authorization.Remove(topic.Authorization.Single(a => a.ClaimValue.StartsWith(user.UserName)));
+            UpdateTopic(topic);
+        }
+
 
         internal QueueDescription UpdateQueue(QueueDescription queue)
         {

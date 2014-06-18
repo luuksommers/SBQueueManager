@@ -11,9 +11,13 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <TextBox x:Name="ConnectionString" Grid.Row="0" Margin="0,5" />
-                <Button x:Name="Set" Content="Set" Grid.Row="1" Margin="0,5" />
+                <Button x:Name="Set" Content="Set" Grid.Row="1" Margin="0,5" HorizontalAlignment="Right" MinWidth="100" />
+                <ScrollViewer Grid.Row="2" Margin="0,5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <TextBlock x:Name="Message"  />
+                </ScrollViewer>
             </Grid>
         </TabItem>
     </TabControl>

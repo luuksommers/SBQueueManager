@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="750">
     <Grid>
@@ -116,11 +117,18 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="" Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Content="Delete" cal:Message.Attach="Delete($this)"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel  Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
                         <TextBlock Text="User" VerticalAlignment="Center" />
-                        <TextBox x:Name="UserName" Height="25" VerticalAlignment="Center" />
+                        <TextBox x:Name="UserName" Height="25" Width="300" VerticalAlignment="Center" />
                         <CheckBox x:Name="UserAllowListen" Content="Read" Margin="5" VerticalAlignment="Center" />
                         <CheckBox x:Name="UserAllowSend" Content="Write" Margin="5" VerticalAlignment="Center" />
                         <Button x:Name="AddUser" Content="Add" Margin="5" HorizontalAlignment="Left" Width="50" />

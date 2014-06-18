@@ -54,9 +54,13 @@ namespace SBQueueManager.ViewModels
 
             _manager.AddUser(Instance, user);
 
-            _manager.UpdateQueue(Instance);
             Users.Add(user);
             NotifyOfPropertyChange(() => Instance);
+        }
+
+        public void Delete(QueueUser user)
+        {
+            _manager.DeleteUser(Instance, user);
         }
 
         public void ReadMessage()
@@ -66,6 +70,9 @@ namespace SBQueueManager.ViewModels
                 MessageBox.Show("Message has been read from queue", "Read Message", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show("No message has been read from queue", "Read Message", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            _manager.UpdateQueue(Instance);
+            NotifyOfPropertyChange(() => Instance);
         }
     }
 }

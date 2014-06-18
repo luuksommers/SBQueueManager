@@ -4,8 +4,16 @@
                      xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                      xmlns:cal="http://www.caliburnproject.org"
                      xmlns:messaging="clr-namespace:Microsoft.ServiceBus.Messaging;assembly=Microsoft.ServiceBus"
-                     Title="Service Bus Queue Manager" Height="600" MinHeight="600" Width="910" MinWidth="910"
-                     BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1" ResizeMode="CanResizeWithGrip"
+                     Title="Service Bus Queue Manager" 
+                     Height="600" 
+                     MinHeight="600" 
+                     Icon="../app.ico"
+                     ShowIconOnTitleBar="False"
+                     Width="910" 
+                     MinWidth="910"
+                     GlowBrush="{DynamicResource AccentColorBrush}"
+                     BorderThickness="1" 
+                     ResizeMode="CanResizeWithGrip"
                      >
 
     <Window.Resources>
