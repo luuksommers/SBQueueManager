@@ -1,12 +1,12 @@
 ## Service Bus Queue Manager
 
-One thing the Service Bus for Windows Server 1.0 lacks is a good manager to create and delete queues. This tool aims to provide that functionality by simply changing the connection string in the .config file.
+One thing the Service Bus for Windows Server lacks is a good manager to create and delete queues and topics. This tool aims to provide that functionality by simply changing the connection string in the .config file, or running it and change it runtime.
 
 ![Image of the Service Bus Queue Manager](https://lh3.googleusercontent.com/-mpoQtHKVseU/UaUAEvZssBI/AAAAAAABPFI/NIdNyuUcqW0/w634-h418-no/Queue_Manager.png)
 
 ## Usage
 
-Download the source and compile it in Visual Studio 2012. Binaries will be available when the product has reached ALPHA status.
+Download the source and compile it in Visual Studio 2013. 
 
 ## Current status
 
