@@ -89,10 +89,10 @@
         </Grid.ColumnDefinitions>
         <Button Grid.Column="0" Grid.Row="0" x:Name="OpenConnectionStringManager" Content="Connection Manager" Margin="5" />
         <Button Grid.Column="0" Grid.Row="1" x:Name="AddNew" Content="Add New" Margin="5" />
-        <ListBox Grid.Column="0" Grid.Row="2" Validation.ErrorTemplate="{x:Null}" 
+        <ListBox Grid.Column="0" Grid.Row="2" Validation.ErrorTemplate="{x:Null}"
                  Margin="5" Width="180"
                  HorizontalAlignment="Left" BorderBrush="Black"
-                 cal:Message.Attach="[Event MouseDoubleClick] = [Action OpenEntity($this)]">
+                 cal:Message.Attach="[Event SelectionChanged] = [Action OpenEntity($this)]">
             <ListBox.ItemsSource>
                 <CompositeCollection>
                     <CollectionContainer Collection="{Binding Source={StaticResource queues}}" />
