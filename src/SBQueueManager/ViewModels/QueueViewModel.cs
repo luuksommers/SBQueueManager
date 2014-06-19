@@ -61,6 +61,8 @@ namespace SBQueueManager.ViewModels
         public void Delete(QueueUser user)
         {
             _manager.DeleteUser(Instance, user);
+            Users.Remove(user);
+            NotifyOfPropertyChange(() => Instance);
         }
 
         public void ReadMessage()
