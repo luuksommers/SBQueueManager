@@ -77,13 +77,6 @@
             <ColumnDefinition Width="*" MinWidth="200" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-            <Button x:Name="AddNew" Margin="5">
-                <Rectangle Width="20" Height="20">
-                    <Rectangle.Fill>
-                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-            </Button>
             <Button  x:Name="OpenConnectionStringManager" Margin="5">
                 <Rectangle Width="20" Height="20">
                     <Rectangle.Fill>
@@ -102,6 +95,20 @@
                             </Style.Triggers>
                         </Style>
                     </Rectangle.Style>
+                </Rectangle>
+            </Button>
+            <Button x:Name="AddNew" Margin="5">
+                <Rectangle Width="20" Height="20">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+            <Button x:Name="Refresh" Margin="5">
+                <Rectangle Width="20" Height="20">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_refresh}"/>
+                    </Rectangle.Fill>
                 </Rectangle>
             </Button>
         </StackPanel>

@@ -37,6 +37,11 @@ namespace SBQueueManager.ViewModels
             get { return _manager != null; }
         }
 
+        public bool CanRefresh
+        {
+            get { return _manager != null; }
+        }
+
         public override string DisplayName
         {
             get { return "Service Bus For Windows Queue Manager"; }
@@ -81,6 +86,7 @@ namespace SBQueueManager.ViewModels
                 ContentViewModel = null;
 
                 NotifyOfPropertyChange(() => CanAddNew);
+                NotifyOfPropertyChange(() => CanRefresh);
                 NotifyOfPropertyChange(() => Queues);
                 NotifyOfPropertyChange(() => Topics);
             }
@@ -91,6 +97,7 @@ namespace SBQueueManager.ViewModels
                 Topics = null;
 
                 NotifyOfPropertyChange(() => CanAddNew);
+                NotifyOfPropertyChange(() => CanRefresh);
                 NotifyOfPropertyChange(() => Queues);
                 NotifyOfPropertyChange(() => Topics);
 
@@ -122,6 +129,11 @@ namespace SBQueueManager.ViewModels
                 ContentViewModel = new QueueViewModel((QueueDescription)entity, _manager);
             else if (entity is TopicDescription)
                 ContentViewModel = new TopicViewModel((TopicDescription)entity, _manager);
+        }
+
+        public void Refresh()
+        {
+            LoadOrSetConnection();
         }
 
         public void AddNew()
