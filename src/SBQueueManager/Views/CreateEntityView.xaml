@@ -3,15 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:helpers="clr-namespace:SBQueueManager.Helpers"
+             xmlns:local="clr-namespace:SBQueueManager.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="250" d:DesignWidth="550">
 
 
     <Grid Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
+            
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" MinHeight="100" />
-            <RowDefinition Height="Auto" />
+            
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -19,21 +24,24 @@
             <ColumnDefinition Width="250" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" VerticalAlignment="Center" />
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="Path" Text="{Binding Path, UpdateSourceTrigger=LostFocus}" Height="25" />
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="99" CanUserAddRows="false" Margin="0,5" x:Name="Users" AutoGenerateColumns="True" />
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="6">
+            <StackPanel.Resources>
+                <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+            </StackPanel.Resources>
+            <RadioButton Margin="15,5" Content="Queue" IsChecked="{Binding Path=EntityType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ServiceBusEntityType.Queue}}" />
+            <RadioButton Margin="15,5" Content="Topic" IsChecked="{Binding Path=EntityType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ServiceBusEntityType.Topic}}" />
+        </StackPanel>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" VerticalAlignment="Center" />
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="Path" Text="{Binding Path, UpdateSourceTrigger=LostFocus}" Height="25" />
         <TextBlock Grid.Row="2" Grid.Column="0" Text="User" VerticalAlignment="Center" />
         <TextBox Grid.Row="2" Grid.Column="1" x:Name="UserName" Height="25" VerticalAlignment="Center" />
         <CheckBox Grid.Row="2" Grid.Column="2" x:Name="UserAllowListen" Content="Read" Margin="5" VerticalAlignment="Center" />
         <CheckBox Grid.Row="2" Grid.Column="3" x:Name="UserAllowSend" Content="Write" Margin="5" VerticalAlignment="Center" />
         <Button Grid.Row="2" Grid.Column="4" x:Name="AddUser" Content="Add" Margin="5" HorizontalAlignment="Left" Width="50" />
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="6" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
-            <Button x:Name="SaveQueue" Content="Save as Queue" Margin="5" Width="100"  />
-            <Button x:Name="SaveTopic" Content="Save as Topic" Margin="5" Width="100"  />
-        </StackPanel>
+        <DataGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="false" Margin="0,5" x:Name="Users" AutoGenerateColumns="True" />
+        <Button Grid.Row="4" Grid.ColumnSpan="6" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="Save" Content="Save" Margin="5" Width="100"  />
     </Grid>
 </UserControl>

@@ -29,9 +29,6 @@
             <DataTemplate DataType="{x:Type messaging:QueueDescription}">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20">
-                        <Rectangle.Resources>
-                            <SolidColorBrush x:Key="BlackBrush" Color="LightGray" />
-                        </Rectangle.Resources>
                         <Rectangle.Fill>
                             <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_queue}">
                                 <VisualBrush.RelativeTransform>
@@ -46,15 +43,8 @@
             <DataTemplate DataType="{x:Type messaging:TopicDescription}">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20">
-                        <Rectangle.Resources>
-                            <SolidColorBrush x:Key="BlackBrush" Color="LightGray" />
-                        </Rectangle.Resources>
                         <Rectangle.Fill>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_topic}">
-                                <VisualBrush.RelativeTransform>
-                                    <RotateTransform CenterX="0.5" CenterY="0.5" Angle="90" />
-                                </VisualBrush.RelativeTransform>
-                            </VisualBrush>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_topic}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                     <TextBlock Margin="10,0,0,0" Text="{Binding Path}" />
@@ -89,29 +79,15 @@
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <Button x:Name="AddNew" Margin="5">
                 <Rectangle Width="20" Height="20">
-                    <Rectangle.Resources>
-                        <SolidColorBrush x:Key="BlackBrush" Color="LightGray" />
-                    </Rectangle.Resources>
                     <Rectangle.Fill>
-                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}">
-                            <VisualBrush.RelativeTransform>
-                                <RotateTransform CenterX="0.5" CenterY="0.5" Angle="90" />
-                            </VisualBrush.RelativeTransform>
-                        </VisualBrush>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}"/>
                     </Rectangle.Fill>
                 </Rectangle>
             </Button>
             <Button  x:Name="OpenConnectionStringManager" Margin="5">
                 <Rectangle Width="20" Height="20">
-                    <Rectangle.Resources>
-                        <SolidColorBrush x:Key="BlackBrush" Color="LightGray" />
-                    </Rectangle.Resources>
                     <Rectangle.Fill>
-                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_connect}">
-                            <VisualBrush.RelativeTransform>
-                                <RotateTransform CenterX="0.5" CenterY="0.5" Angle="90" />
-                            </VisualBrush.RelativeTransform>
-                        </VisualBrush>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_connect}"/>
                     </Rectangle.Fill>
                     <Rectangle.Style>
                         <Style TargetType="Rectangle">
@@ -119,11 +95,7 @@
                                 <DataTrigger Binding="{Binding Connected}" Value="True">
                                     <Setter Property="Fill">
                                         <Setter.Value>
-                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_disconnect}">
-                                                <VisualBrush.RelativeTransform>
-                                                    <RotateTransform CenterX="0.5" CenterY="0.5" Angle="90" />
-                                                </VisualBrush.RelativeTransform>
-                                            </VisualBrush>
+                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_disconnect}"/>
                                         </Setter.Value>
                                     </Setter>
                                 </DataTrigger>
