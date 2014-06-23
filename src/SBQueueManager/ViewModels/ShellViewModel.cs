@@ -2,10 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
 using Caliburn.Micro;
 using Microsoft.ServiceBus.Messaging;
 using SBQueueManager.Manager;
@@ -37,7 +34,12 @@ namespace SBQueueManager.ViewModels
             get { return _manager != null; }
         }
 
-        public bool CanRefresh
+        public bool Connected
+        {
+            get { return _manager != null; }
+        }
+
+        public bool CanRefreshList
         {
             get { return _manager != null; }
         }
@@ -86,7 +88,8 @@ namespace SBQueueManager.ViewModels
                 ContentViewModel = null;
 
                 NotifyOfPropertyChange(() => CanAddNew);
-                NotifyOfPropertyChange(() => CanRefresh);
+                NotifyOfPropertyChange(() => Connected);
+                NotifyOfPropertyChange(() => CanRefreshList);
                 NotifyOfPropertyChange(() => Queues);
                 NotifyOfPropertyChange(() => Topics);
             }
@@ -97,7 +100,8 @@ namespace SBQueueManager.ViewModels
                 Topics = null;
 
                 NotifyOfPropertyChange(() => CanAddNew);
-                NotifyOfPropertyChange(() => CanRefresh);
+                NotifyOfPropertyChange(() => Connected);
+                NotifyOfPropertyChange(() => CanRefreshList);
                 NotifyOfPropertyChange(() => Queues);
                 NotifyOfPropertyChange(() => Topics);
 
@@ -131,7 +135,7 @@ namespace SBQueueManager.ViewModels
                 ContentViewModel = new TopicViewModel((TopicDescription)entity, _manager);
         }
 
-        public void Refresh()
+        public void RefreshList()
         {
             LoadOrSetConnection();
         }

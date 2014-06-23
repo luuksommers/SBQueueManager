@@ -82,20 +82,24 @@
                     <Rectangle.Fill>
                         <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_connect}"/>
                     </Rectangle.Fill>
-                    <Rectangle.Style>
-                        <Style TargetType="Rectangle">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Connected}" Value="True">
-                                    <Setter Property="Fill">
-                                        <Setter.Value>
-                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_disconnect}"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Rectangle.Style>
                 </Rectangle>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Connected}" Value="True">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Rectangle Width="20" Height="20">
+                                            <Rectangle.Fill>
+                                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_disconnect}"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
             <Button x:Name="AddNew" Margin="5">
                 <Rectangle Width="20" Height="20">
@@ -104,7 +108,7 @@
                     </Rectangle.Fill>
                 </Rectangle>
             </Button>
-            <Button x:Name="Refresh" Margin="5">
+            <Button x:Name="RefreshList" Margin="5">
                 <Rectangle Width="20" Height="20">
                     <Rectangle.Fill>
                         <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_refresh}"/>
