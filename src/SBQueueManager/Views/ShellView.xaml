@@ -78,11 +78,6 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <Button  x:Name="OpenConnectionStringManager" Margin="5">
-                <Rectangle Width="20" Height="20">
-                    <Rectangle.Fill>
-                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_connect}"/>
-                    </Rectangle.Fill>
-                </Rectangle>
                 <Button.Style>
                     <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                         <Style.Triggers>
@@ -92,6 +87,17 @@
                                         <Rectangle Width="20" Height="20">
                                             <Rectangle.Fill>
                                                 <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_disconnect}"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Connected}" Value="False">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Rectangle Width="20" Height="20">
+                                            <Rectangle.Fill>
+                                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_connect}"/>
                                             </Rectangle.Fill>
                                         </Rectangle>
                                     </Setter.Value>
