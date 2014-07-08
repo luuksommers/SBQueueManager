@@ -92,8 +92,7 @@ namespace SBQueueManager.Manager
         public void AddUser(QueueDescription queue, QueueUser user)
         {
             queue.Authorization.Add(new AllowRule(_nameSpace, "nameidentifier",
-                                                     user.UserName + "@" +
-                                                     Environment.GetEnvironmentVariable("USERDNSDOMAIN"),
+                                                     user.UserName,
                                                      user.GetAccessRights()));
             UpdateQueue(queue);
         }
@@ -107,8 +106,7 @@ namespace SBQueueManager.Manager
         public void AddUser(TopicDescription topic, QueueUser user)
         {
             topic.Authorization.Add(new AllowRule(_nameSpace, "nameidentifier",
-                                                     user.UserName + "@" +
-                                                     Environment.GetEnvironmentVariable("USERDNSDOMAIN"),
+                                                     user.UserName,
                                                      user.GetAccessRights()));
             UpdateTopic(topic);
         }
