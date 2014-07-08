@@ -39,7 +39,9 @@ namespace SBQueueManager.Manager
 
             foreach (QueueUser user in users)
             {
-                AddUser(queue, user);
+                queue.Authorization.Add(new AllowRule(_nameSpace, "nameidentifier",
+                         user.UserName,
+                         user.GetAccessRights()));
             }
 
             queue = _namespaceManager.CreateQueue(queue);
@@ -57,7 +59,9 @@ namespace SBQueueManager.Manager
             var topic = new TopicDescription(path);
             foreach (QueueUser user in users)
             {
-                AddUser(topic, user);
+                topic.Authorization.Add(new AllowRule(_nameSpace, "nameidentifier",
+                                         user.UserName,
+                                         user.GetAccessRights()));
             }
 
             topic = _namespaceManager.CreateTopic(topic);
