@@ -72,9 +72,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition MinWidth="130" />
             <ColumnDefinition Width="2" />
-            <ColumnDefinition Width="*" MinWidth="200" />
+            <ColumnDefinition MinWidth="200" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <Button  x:Name="OpenConnectionStringManager" Margin="5">
@@ -124,8 +124,7 @@
         </StackPanel>
 
         <ListBox Grid.Column="0" Grid.Row="1" Validation.ErrorTemplate="{x:Null}"
-                 Margin="5" Width="180"
-                 HorizontalAlignment="Left" BorderBrush="Black"
+                 Margin="5" BorderBrush="Black"
                  cal:Message.Attach="[Event SelectionChanged] = [Action OpenEntity($this)]">
             <ListBox.ItemsSource>
                 <CompositeCollection>
@@ -134,7 +133,7 @@
                 </CompositeCollection>
             </ListBox.ItemsSource>
         </ListBox>
-        <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Width="2" Background="{StaticResource SplitterGradientBrush}" />
+        <GridSplitter Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Width="2" Background="{StaticResource SplitterGradientBrush}" ShowsPreview="True" ResizeBehavior="PreviousAndNext" />
         <ContentControl 
             Margin="5,0,0,0" 
             Grid.Column="2"
