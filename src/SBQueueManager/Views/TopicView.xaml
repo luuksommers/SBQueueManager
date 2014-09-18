@@ -158,7 +158,15 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="" Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Content="Delete" cal:Message.Attach="DeleteSubscription($this)"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
+
                     </DataGrid>
                     <StackPanel  Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
                         <TextBlock Text="Subscription" VerticalAlignment="Center" />

@@ -66,7 +66,15 @@ namespace SBQueueManager.ViewModels
             _manager.DeleteUser(Instance, user);
             Users.Remove(user);
             NotifyOfPropertyChange(() => Instance);
+        }
 
+        public void DeleteSubscription(SubscriptionDescription subscription)
+        {
+            _manager.RemoveSubscription(Instance, subscription.Name);
+            _manager.UpdateTopic(Instance);
+
+            Subscriptions.Remove(subscription);
+            NotifyOfPropertyChange(() => Instance);
         }
 
         public string SubscriptionName { get; set; }
