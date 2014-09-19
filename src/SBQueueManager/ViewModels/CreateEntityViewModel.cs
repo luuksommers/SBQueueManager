@@ -41,6 +41,7 @@ namespace SBQueueManager.ViewModels
         public string UserName { get; set; }
         public bool UserAllowListen { get; set; }
         public bool UserAllowSend { get; set; }
+        public bool UserAllowManage { get; set; }
         public ObservableCollection<QueueUser> Users { get; set; }
         public bool CanSave { get { return IsNameValid; } }
 
@@ -51,7 +52,7 @@ namespace SBQueueManager.ViewModels
             user.UserName = UserName;
             user.AllowListen = UserAllowListen;
             user.AllowSend = UserAllowSend;
-
+            user.AllowManage = user.AllowManage;
             Users.Add(user);
         }
 

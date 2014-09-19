@@ -25,6 +25,7 @@ namespace SBQueueManager.ViewModels
                     UserName = a.ClaimValue,
                     AllowListen = a.Rights.Any(b => b == AccessRights.Listen),
                     AllowSend = a.Rights.Any(b => b == AccessRights.Send),
+                    AllowManage = a.Rights.Any(b => b == AccessRights.Manage),
                 }));
         }
 
@@ -44,6 +45,7 @@ namespace SBQueueManager.ViewModels
         public string UserName { get; set; }
         public bool UserAllowListen { get; set; }
         public bool UserAllowSend { get; set; }
+        public bool UserAllowManage { get; set; }
 
         public void AddUser()
         {
@@ -51,6 +53,7 @@ namespace SBQueueManager.ViewModels
             user.UserName = UserName;
             user.AllowListen = UserAllowListen;
             user.AllowSend = UserAllowSend;
+            user.AllowManage = UserAllowManage;
 
             _manager.AddUser(Instance, user);
 

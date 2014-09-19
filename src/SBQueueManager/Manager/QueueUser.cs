@@ -14,6 +14,8 @@ namespace SBQueueManager.Manager
 
         public bool AllowSend { get; set; }
 
+        public bool AllowManage { get; set; }
+
         /// <summary>
         ///     Returns the user rights (Read and/or write)
         /// </summary>
@@ -23,6 +25,9 @@ namespace SBQueueManager.Manager
                 yield return AccessRights.Listen;
             if (AllowSend)
                 yield return AccessRights.Send;
+            if (AllowManage)
+                yield return AccessRights.Manage;
+
         }
     }
 }
