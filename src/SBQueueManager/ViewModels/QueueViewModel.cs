@@ -58,11 +58,30 @@ namespace SBQueueManager.ViewModels
             NotifyOfPropertyChange(() => Instance);
         }
 
+        public void Update()
+        {
+            try
+            {
+                _manager.UpdateQueue(Instance);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Update failed", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         public void Delete(QueueUser user)
         {
-            _manager.DeleteUser(Instance, user);
-            Users.Remove(user);
-            NotifyOfPropertyChange(() => Instance);
+            try
+            {
+                _manager.DeleteUser(Instance, user);
+                Users.Remove(user);
+                NotifyOfPropertyChange(() => Instance);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Delete user failed", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public void ReadMessage()

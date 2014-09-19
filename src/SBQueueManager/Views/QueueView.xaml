@@ -55,26 +55,27 @@
                     <Label Grid.Row="0" Grid.Column="1" x:Name="Instance_Path" />
                     <Label Grid.Row="1" Grid.Column="1" x:Name="Instance_AccessedAt" />
                     <Label Grid.Row="2" Grid.Column="1" x:Name="Instance_CreatedAt" />
-                    <Label Grid.Row="3" Grid.Column="1" x:Name="Instance_DefaultMessageTimeToLive" />
-                    <Label Grid.Row="4" Grid.Column="1" x:Name="Instance_DuplicateDetectionHistoryTimeWindow" />
-                    <Label Grid.Row="5" Grid.Column="1" x:Name="Instance_EnableBatchedOperations" />
-                    <Label Grid.Row="6" Grid.Column="1" x:Name="Instance_EnableDeadLetteringOnMessageExpiration" />
+                    <TextBox Grid.Row="3" Grid.Column="1" x:Name="Instance_DefaultMessageTimeToLive" />
+                    <TextBox Grid.Row="4" Grid.Column="1" x:Name="Instance_DuplicateDetectionHistoryTimeWindow" />
+                    <CheckBox Grid.Row="5" Grid.Column="1" x:Name="Instance_EnableBatchedOperations" />
+                    <CheckBox Grid.Row="6" Grid.Column="1" x:Name="Instance_EnableDeadLetteringOnMessageExpiration" />
                     <Label Grid.Row="7" Grid.Column="1" x:Name="Instance_ForwardTo" />
-                    <Label Grid.Row="8" Grid.Column="1" x:Name="Instance_IsAnonymousAccessible" />
+                    <CheckBox Grid.Row="8" Grid.Column="1" x:Name="Instance_IsAnonymousAccessible" />
                     <Label Grid.Row="9" Grid.Column="1" x:Name="Instance_UpdatedAt" />
 
-                    <Label Grid.Row="0" Grid.Column="3" x:Name="Instance_LockDuration" />
-                    <Label Grid.Row="1" Grid.Column="3" x:Name="Instance_MaxDeliveryCount" />
-                    <Label Grid.Row="2" Grid.Column="3" x:Name="Instance_MaxSizeInMegabytes" />
+                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="Instance_LockDuration" />
+                    <TextBox Grid.Row="1" Grid.Column="3" x:Name="Instance_MaxDeliveryCount" />
+                    <TextBox Grid.Row="2" Grid.Column="3" x:Name="Instance_MaxSizeInMegabytes" />
                     <Label Grid.Row="3" Grid.Column="3" x:Name="Instance_MessageCount" />
-                    <Label Grid.Row="4" Grid.Column="3" x:Name="Instance_RequiresDuplicateDetection" />
-                    <Label Grid.Row="5" Grid.Column="3" x:Name="Instance_RequiresSession" />
+                    <CheckBox Grid.Row="4" Grid.Column="3" x:Name="Instance_RequiresDuplicateDetection" />
+                    <CheckBox Grid.Row="5" Grid.Column="3" x:Name="Instance_RequiresSession" />
                     <Label Grid.Row="6" Grid.Column="3" x:Name="Instance_SizeInBytes" />
                     <Label Grid.Row="7" Grid.Column="3" x:Name="Instance_Status" />
-                    <Label Grid.Row="8" Grid.Column="3" x:Name="Instance_SupportOrdering" />
+                    <CheckBox Grid.Row="8" Grid.Column="3" x:Name="Instance_SupportOrdering" />
                     <Label Grid.Row="9" Grid.Column="3" x:Name="Instance_UserMetadata" />
 
                     <StackPanel Grid.Row="10" Grid.ColumnSpan="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
+                        <Button Margin="5" x:Name="Update" Content="Update" Width="100" />
                         <Button Margin="5" x:Name="ReadMessage" Content="Read Message" Width="100" />
                         <Button Margin="5" x:Name="Delete" Content="Delete" Width="100" />
                     </StackPanel>

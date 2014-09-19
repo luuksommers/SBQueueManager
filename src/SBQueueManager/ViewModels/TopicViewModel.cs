@@ -31,6 +31,18 @@ namespace SBQueueManager.ViewModels
             Subscriptions = new ObservableCollection<SubscriptionDescription>(manager.GetSubscriptions(topicInstance));
         }
 
+        public void Update()
+        {
+            try
+            {
+                _manager.UpdateTopic(Instance);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Update failed", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         public void Delete()
         {
             var result = MessageBox.Show(
@@ -63,31 +75,52 @@ namespace SBQueueManager.ViewModels
 
         public void Delete(QueueUser user)
         {
-            _manager.DeleteUser(Instance, user);
-            Users.Remove(user);
-            NotifyOfPropertyChange(() => Instance);
+            try
+            {
+                _manager.DeleteUser(Instance, user);
+                Users.Remove(user);
+                NotifyOfPropertyChange(() => Instance);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Delete user failed", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public void DeleteSubscription(SubscriptionDescription subscription)
         {
-            _manager.RemoveSubscription(Instance, subscription.Name);
-            _manager.UpdateTopic(Instance);
+            try
+            {
+                _manager.RemoveSubscription(Instance, subscription.Name);
+                _manager.UpdateTopic(Instance);
 
-            Subscriptions.Remove(subscription);
-            NotifyOfPropertyChange(() => Instance);
+                Subscriptions.Remove(subscription);
+                NotifyOfPropertyChange(() => Instance);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Delete subscription failed", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public string SubscriptionName { get; set; }
         public void AddSubscription()
         {
-            var subscription = new SubscriptionDescription(Instance.Path, SubscriptionName);
-            subscription = _manager.AddSubscription(subscription);
+            try
+            {
+                var subscription = new SubscriptionDescription(Instance.Path, SubscriptionName);
+                subscription = _manager.AddSubscription(subscription);
 
-            _manager.UpdateTopic(Instance);
+                _manager.UpdateTopic(Instance);
 
-            Subscriptions.Add(subscription);
+                Subscriptions.Add(subscription);
 
-            NotifyOfPropertyChange(() => Instance);
+                NotifyOfPropertyChange(() => Instance);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Add subscription failed", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
