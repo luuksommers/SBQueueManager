@@ -24,11 +24,10 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Content="Path" />
                     <Label Grid.Row="1" Grid.Column="0" Content="AccessedAt" />
@@ -74,7 +73,7 @@
                     <CheckBox Grid.Row="8" Grid.Column="3" x:Name="Instance_SupportOrdering" />
                     <Label Grid.Row="9" Grid.Column="3" x:Name="Instance_UserMetadata" />
 
-                    <StackPanel Grid.Row="10" Grid.ColumnSpan="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
+                    <StackPanel Grid.Row="10" Grid.ColumnSpan="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
                         <Button Margin="5" x:Name="Update" Content="Update" Width="100" />
                         <Button Margin="5" x:Name="ReadMessage" Content="Read Message" Width="100" />
                         <Button Margin="5" x:Name="Delete" Content="Delete" Width="100" />
@@ -91,7 +90,7 @@
                               SelectedItem="{Binding Path=SelectedAuthorization,Mode=TwoWay}"
                               AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="UserName" Width="150">
+                            <DataGridTemplateColumn Header="UserName" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch"
@@ -100,7 +99,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Allow Read" Width="100">
+                            <DataGridTemplateColumn Header="Read" Width="75">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -109,7 +108,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Allow Write" Width="100">
+                            <DataGridTemplateColumn Header="Write" Width="75">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -118,7 +117,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Allow Manage" Width="100">
+                            <DataGridTemplateColumn Header="Manage" Width="75">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center"

@@ -72,7 +72,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="130" />
+            <ColumnDefinition MinWidth="130" Width="250" />
             <ColumnDefinition Width="2" />
             <ColumnDefinition MinWidth="200" />
         </Grid.ColumnDefinitions>
