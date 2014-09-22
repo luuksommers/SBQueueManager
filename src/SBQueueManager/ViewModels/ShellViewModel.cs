@@ -3,7 +3,10 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows;
 using Caliburn.Micro;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.ServiceBus.Messaging;
 using SBQueueManager.Manager;
 using SBQueueManager.Properties;
@@ -135,9 +138,14 @@ namespace SBQueueManager.ViewModels
                 ContentViewModel = new TopicViewModel((TopicDescription)entity, _manager);
         }
 
-        public void RefreshList()
+        public async void RefreshList()
         {
+            var metroWindow = (Application.Current.MainWindow as MetroWindow);
+            var controller = await metroWindow.ShowProgressAsync("Please wait", "Refreshing the list");
+            
             LoadOrSetConnection();
+
+            await controller.CloseAsync();
         }
 
         public void AddNew()

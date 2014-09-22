@@ -81,69 +81,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Authorization">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <DataGrid Grid.Row="0" x:Name="Users" Validation.ErrorTemplate="{x:Null}" CanUserAddRows="false"
-                              SelectedItem="{Binding Path=SelectedAuthorization,Mode=TwoWay}"
-                              AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="UserName" Width="*">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                                                 Text="{Binding UserName}">
-                                        </TextBox>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Read" Width="75">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                  IsChecked="{Binding AllowListen}">
-                                        </CheckBox>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Write" Width="75">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                  IsChecked="{Binding AllowSend}">
-                                        </CheckBox>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Manage" Width="75">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                  IsChecked="{Binding AllowManage}">
-                                        </CheckBox>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="" Width="100">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Content="Delete" cal:Message.Attach="Delete($this)"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <StackPanel  Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-                        <TextBlock Text="User" VerticalAlignment="Center" />
-                        <TextBox x:Name="UserName" Height="25" Width="300" VerticalAlignment="Center" />
-                        <CheckBox x:Name="UserAllowListen" Content="Read" Margin="5" VerticalAlignment="Center" />
-                        <CheckBox x:Name="UserAllowSend" Content="Write" Margin="5" VerticalAlignment="Center" />
-                        <CheckBox x:Name="UserAllowManage" Content="Manage" Margin="5" VerticalAlignment="Center" />
-                        <Button x:Name="AddUser" Content="Add" Margin="5" HorizontalAlignment="Left" Width="50" />
-                    </StackPanel>
-                </Grid>
+                <ContentControl x:Name="Users"/>
             </TabItem>
         </TabControl>
 

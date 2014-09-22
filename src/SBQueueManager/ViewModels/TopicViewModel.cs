@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.ServiceBus.Messaging;
 using SBQueueManager.Manager;
 
@@ -12,8 +14,7 @@ namespace SBQueueManager.ViewModels
     {
         private readonly ServiceBusManager _manager;
         public TopicDescription Instance { get; set; }
-        public ObservableCollection<QueueUser> Users { get; set; }
-        public AuthorizationRule SelectedAuthorization { get; set; }
+        public TopicUsersViewModel Users { get; set; }
 
         public SubscriptionDescription SelectedSubscription { get; set; }
         public ObservableCollection<SubscriptionDescription> Subscriptions { get; set; }
@@ -22,21 +23,20 @@ namespace SBQueueManager.ViewModels
         {
             _manager = manager;
             Instance = topicInstance;
-            Users = new ObservableCollection<QueueUser>(topicInstance.Authorization.Select(a => new QueueUser()
-                {
-                    UserName = a.ClaimValue,
-                    AllowListen = a.Rights.Any(b => b == AccessRights.Listen),
-                    AllowSend = a.Rights.Any(b => b == AccessRights.Send),
-                    AllowManage = a.Rights.Any(b => b == AccessRights.Manage),
-                }));
+            Users = new TopicUsersViewModel(manager, topicInstance);
             Subscriptions = new ObservableCollection<SubscriptionDescription>(manager.GetSubscriptions(topicInstance));
         }
 
-        public void Update()
+        public async void Update()
         {
             try
             {
+                var metroWindow = (Application.Current.MainWindow as MetroWindow);
+
                 _manager.UpdateTopic(Instance);
+
+                await metroWindow.ShowMessageAsync("Updating", "Success");
+
             }
             catch (Exception e)
             {
@@ -53,40 +53,6 @@ namespace SBQueueManager.ViewModels
             if (result == MessageBoxResult.Yes)
             {
                 _manager.DeleteTopic(Instance.Path);
-            }
-        }
-
-
-        public string UserName { get; set; }
-        public bool UserAllowListen { get; set; }
-        public bool UserAllowSend { get; set; }
-        public bool UserAllowManage { get; set; }
-
-        public void AddUser()
-        {
-            var user = new QueueUser();
-            user.UserName = UserName;
-            user.AllowListen = UserAllowListen;
-            user.AllowSend = UserAllowSend;
-            user.AllowManage = UserAllowManage;
-
-            _manager.AddUser(Instance, user);
-            _manager.UpdateTopic(Instance);
-            Users.Add(user);
-            NotifyOfPropertyChange(() => Instance);
-        }
-
-        public void Delete(QueueUser user)
-        {
-            try
-            {
-                _manager.DeleteUser(Instance, user);
-                Users.Remove(user);
-                NotifyOfPropertyChange(() => Instance);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, "Delete user failed", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

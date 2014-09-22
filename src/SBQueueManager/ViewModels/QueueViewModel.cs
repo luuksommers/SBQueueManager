@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.ServiceBus.Messaging;
-using NLog;
 using SBQueueManager.Manager;
 
 namespace SBQueueManager.ViewModels
@@ -13,20 +12,13 @@ namespace SBQueueManager.ViewModels
     {
         private readonly ServiceBusManager _manager;
         public QueueDescription Instance { get; set; }
-        public ObservableCollection<QueueUser> Users { get; set; }
-        public AuthorizationRule SelectedAuthorization { get; set; }
+        public QueueUsersViewModel Users { get; set; }
 
         public QueueViewModel(QueueDescription queueInstance, ServiceBusManager manager)
         {
             _manager = manager;
             Instance = queueInstance;
-            Users = new ObservableCollection<QueueUser>(queueInstance.Authorization.Select(a => new QueueUser()
-                {
-                    UserName = a.ClaimValue,
-                    AllowListen = a.Rights.Any(b => b == AccessRights.Listen),
-                    AllowSend = a.Rights.Any(b => b == AccessRights.Send),
-                    AllowManage = a.Rights.Any(b => b == AccessRights.Manage),
-                }));
+            Users = new QueueUsersViewModel(manager, queueInstance);
         }
 
         public void Delete()
@@ -41,49 +33,19 @@ namespace SBQueueManager.ViewModels
             }
         }
 
-
-        public string UserName { get; set; }
-        public bool UserAllowListen { get; set; }
-        public bool UserAllowSend { get; set; }
-        public bool UserAllowManage { get; set; }
-
-        public void AddUser()
-        {
-            var user = new QueueUser();
-            user.UserName = UserName;
-            user.AllowListen = UserAllowListen;
-            user.AllowSend = UserAllowSend;
-            user.AllowManage = UserAllowManage;
-
-            _manager.AddUser(Instance, user);
-
-            Users.Add(user);
-            NotifyOfPropertyChange(() => Instance);
-        }
-
-        public void Update()
+        public async void Update()
         {
             try
             {
+                var metroWindow = (Application.Current.MainWindow as MetroWindow);
+
                 _manager.UpdateQueue(Instance);
+
+                await metroWindow.ShowMessageAsync("Updating", "Success");
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Update failed", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        public void Delete(QueueUser user)
-        {
-            try
-            {
-                _manager.DeleteUser(Instance, user);
-                Users.Remove(user);
-                NotifyOfPropertyChange(() => Instance);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, "Delete user failed", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

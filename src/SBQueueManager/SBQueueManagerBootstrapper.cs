@@ -19,6 +19,8 @@ namespace SBQueueManager
 
         protected override void Configure()
         {
+            base.Configure();
+
             var builder = new ContainerBuilder();
 
             builder.RegisterType<ServiceBusManager>();
@@ -32,7 +34,20 @@ namespace SBQueueManager
 
             Container = builder.Build();
 
-            base.Configure();
+
+            var baseLocate = ViewLocator.LocateTypeForModelType;
+
+            ViewLocator.LocateTypeForModelType = (modelType, displayLocation, context) =>
+            {
+                Type result = baseLocate(modelType, displayLocation, context);
+                if (result == null)
+                {
+                    modelType = modelType.BaseType;
+                    result = baseLocate(modelType, displayLocation, context);
+                }
+
+                return result;
+            };
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
