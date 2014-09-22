@@ -56,8 +56,10 @@ namespace SBQueueManager.ViewModels
         protected override async void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-            ContentViewModel = new LoadingViewModel();
+            var metroWindow = (Application.Current.MainWindow as MetroWindow);
+            var controller = await metroWindow.ShowProgressAsync("Initializing...", "");
             await Task.Run(() => LoadOrSetConnection());
+            await controller.CloseAsync();
         }
 
         private void LoadOrSetConnection()
