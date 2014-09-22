@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Threading.Tasks;
-using System.Windows;
 using Caliburn.Micro;
-using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
 using SBQueueManager.Properties;
 
 namespace SBQueueManager.ViewModels
@@ -42,13 +39,9 @@ namespace SBQueueManager.ViewModels
         {
             Settings.Default.ConnectionString = ConnectionString;
             Settings.Default.Save();
-
-            var metroWindow = (Application.Current.MainWindow as MetroWindow);
-            var controller = await metroWindow.ShowProgressAsync("Refreshing...", "");
+            _shellViewModel.ContentViewModel = new LoadingViewModel();
 
             await Task.Run(() => _shellViewModel.SetManager(ConnectionString));
-
-            await controller.CloseAsync();
         }
     }
 }
