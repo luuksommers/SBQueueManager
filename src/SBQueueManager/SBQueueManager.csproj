@@ -105,7 +105,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\LambdaComparer.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
+    <Compile Include="ViewModels\CopyAllViewModel.cs" />
     <Compile Include="ViewModels\QueueUsersViewModel.cs" />
     <Compile Include="ViewModels\TopicUsersViewModel.cs" />
     <Compile Include="ViewModels\UsersViewModel.cs" />
@@ -114,6 +116,10 @@
     <Page Include="Resources\Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CopyAllView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UsersView.xaml">
       <Generator>MSBuild:Compile</Generator>

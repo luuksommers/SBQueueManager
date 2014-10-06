@@ -121,6 +121,13 @@
                     </Rectangle.Fill>
                 </Rectangle>
             </Button>
+            <Button x:Name="CopyAll" Margin="5">
+                <Rectangle Width="20" Height="20">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_page_copy}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
         </StackPanel>
 
         <ListBox Grid.Column="0" Grid.Row="1" Validation.ErrorTemplate="{x:Null}"

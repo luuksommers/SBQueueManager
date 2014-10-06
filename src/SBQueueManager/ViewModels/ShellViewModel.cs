@@ -37,6 +37,11 @@ namespace SBQueueManager.ViewModels
             get { return _manager != null; }
         }
 
+        public bool CanCopyAll
+        {
+            get { return _manager != null; }
+        }
+
         public bool Connected
         {
             get { return _manager != null; }
@@ -91,12 +96,6 @@ namespace SBQueueManager.ViewModels
                 Topics.CollectionChanged += Topics_CollectionChanged;
 
                 ContentViewModel = null;
-
-                NotifyOfPropertyChange(() => CanAddNew);
-                NotifyOfPropertyChange(() => Connected);
-                NotifyOfPropertyChange(() => CanRefreshList);
-                NotifyOfPropertyChange(() => Queues);
-                NotifyOfPropertyChange(() => Topics);
             }
             catch (Exception e)
             {
@@ -104,14 +103,15 @@ namespace SBQueueManager.ViewModels
                 Queues = null;
                 Topics = null;
 
-                NotifyOfPropertyChange(() => CanAddNew);
-                NotifyOfPropertyChange(() => Connected);
-                NotifyOfPropertyChange(() => CanRefreshList);
-                NotifyOfPropertyChange(() => Queues);
-                NotifyOfPropertyChange(() => Topics);
-
                 OpenConnectionStringManager(e.Message);
             }
+
+            NotifyOfPropertyChange(() => CanAddNew);
+            NotifyOfPropertyChange(() => CanCopyAll);
+            NotifyOfPropertyChange(() => Connected);
+            NotifyOfPropertyChange(() => CanRefreshList);
+            NotifyOfPropertyChange(() => Queues);
+            NotifyOfPropertyChange(() => Topics);
         }
 
         void Queues_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -144,8 +144,8 @@ namespace SBQueueManager.ViewModels
         {
             var metroWindow = (Application.Current.MainWindow as MetroWindow);
             var controller = await metroWindow.ShowProgressAsync("Please wait", "Refreshing the list");
-            
-            LoadOrSetConnection();
+
+            await Task.Run(() => LoadOrSetConnection());
 
             await controller.CloseAsync();
         }
@@ -153,6 +153,11 @@ namespace SBQueueManager.ViewModels
         public void AddNew()
         {
             ContentViewModel = new CreateEntityViewModel(_manager);
+        }
+
+        public void CopyAll()
+        {
+            ContentViewModel = new CopyAllViewModel(_manager);
         }
 
         public void OpenConnectionStringManager(string message = null)

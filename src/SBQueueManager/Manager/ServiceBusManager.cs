@@ -28,6 +28,13 @@ namespace SBQueueManager.Manager
         public ObservableCollection<QueueDescription> Queues { get; set; }
         public ObservableCollection<TopicDescription> Topics { get; set; }
 
+        public void CreateQueue(QueueDescription queue)
+        {
+            queue = _namespaceManager.CreateQueue(queue);
+
+            Queues.Add(queue);
+        }
+
         public void CreateQueue(string path, IEnumerable<QueueUser> users)
         {
             if (_namespaceManager.QueueExists(path))
@@ -49,6 +56,13 @@ namespace SBQueueManager.Manager
             Queues.Add(queue);
         }
 
+        public void CreateTopic(TopicDescription topic)
+        {
+            topic = _namespaceManager.CreateTopic(topic);
+
+            Topics.Add(topic);
+        }
+
         public void CreateTopic(string path, IEnumerable<QueueUser> users)
         {
             if (_namespaceManager.TopicExists(path))
@@ -65,8 +79,6 @@ namespace SBQueueManager.Manager
             }
 
             topic = _namespaceManager.CreateTopic(topic);
-
-            _namespaceManager.CreateSubscription(topic.Path, path);
 
             Topics.Add(topic);
         }
