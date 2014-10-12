@@ -18,9 +18,9 @@
                 <DataGridTemplateColumn Header="UserName" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                                  Text="{Binding UserName}">
-                            </TextBox>
+                            </TextBlock>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -28,7 +28,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                  IsChecked="{Binding AllowListen}">
+                                                  IsChecked="{Binding AllowListen}" IsEnabled="False">
                             </CheckBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -37,7 +37,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                  IsChecked="{Binding AllowSend}">
+                                                  IsChecked="{Binding AllowSend}" IsEnabled="False">
                             </CheckBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -46,7 +46,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                  IsChecked="{Binding AllowManage}">
+                                                  IsChecked="{Binding AllowManage}" IsEnabled="False">
                             </CheckBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
