@@ -3,22 +3,59 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" d:DesignHeight="120" d:DesignWidth="650">
-
-    <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <TabItem Header="Connection String">
-            <Grid Margin="5,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <TextBox x:Name="ConnectionString" Grid.Row="0" Margin="0,5" />
-                <Button x:Name="Set" Content="Set" Grid.Row="1" Margin="0,5" HorizontalAlignment="Right" MinWidth="100" />
-                <ScrollViewer Grid.Row="2" Margin="0,5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <TextBlock x:Name="Message"  />
-                </ScrollViewer>
-            </Grid>
-        </TabItem>
-    </TabControl>
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+        <ResourceDictionary Source="/Resources/Icons.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+  <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <TabItem Header="Connection String">
+      <Grid Margin="5,0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" MaxHeight="150" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBox x:Name="ConnectionString" Grid.Row="0" Margin="0,5" />
+        <Button x:Name="Set" Content="Set" Grid.Row="1" Margin="0,5" HorizontalAlignment="Right" MinWidth="100" />
+        <ScrollViewer Grid.Row="2" Margin="0,5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+          <TextBlock x:Name="Message"  />
+        </ScrollViewer>
+        <ScrollViewer Grid.Row="3" Margin="0,5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+          <ListBox Validation.ErrorTemplate="{x:Null}" SelectedItem="{Binding ConnectionString}"
+                 Margin="5" BorderBrush="Black" ItemsSource="{Binding History}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsHyphenationEnabled="True"  Text="{Binding .}" />
+                  <Button Grid.Column="1" cal:Message.Attach="[Click]=[Action Delete($this)]">
+                    <Rectangle Width="20" Height="20">
+                      <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}">
+                        </VisualBrush>
+                      </Rectangle.Fill>
+                    </Rectangle>
+                  </Button>
+                </Grid>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ListBox>
+        </ScrollViewer>
+      </Grid>
+    </TabItem>
+  </TabControl>
 </UserControl>
